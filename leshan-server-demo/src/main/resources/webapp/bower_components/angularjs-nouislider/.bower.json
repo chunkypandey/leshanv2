@@ -1,0 +1,37 @@
+{
+  "name": "angularjs-nouislider",
+  "description": "An AngularJS wrapper for the noUiSlider range slider with minimal overhead.",
+  "main": "dist/angularjs-nouislider.js",
+  "authors": [
+    "Luud Janssen"
+  ],
+  "license": "WTFPL",
+  "keywords": [
+    "nouislider",
+    "angularjs",
+    "angular",
+    "wrapper"
+  ],
+  "homepage": "https://isaaceindhoven.github.io/angularjs-nouislider/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nouislider": "^11.0.3",
+    "angular": "^1.6.9"
+  },
+  "_release": "9f350557ed",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "9f350557ed579bea71ce18de540fa296c3a9e7ec"
+  },
+  "_source": "https://github.com/luudjanssen/angularjs-nouislider.git",
+  "_target": "*",
+  "_originalSource": "angularjs-nouislider",
+  "_direct": true
+}
