@@ -75,24 +75,14 @@ lwClientControllers.controller('ClientListCtrl', [
             return tooltip;
         };
 
-        $scope.sliderPositions = [20, 80];
-
-        $scope.optionsWithoutStart = {
-            connect: true,
-            range: {
-                min: 0,
-                max: 100
-            }
-        };
-
 
         // get the list of connected clients
         $http.get('api/clients'). error(function(data, status, headers, config){
             $scope.error = "Unable to get client list: " + status + " " + data;
             console.error($scope.error);
         }).success(function(data, status, headers, config) {
-            // $scope.clients = data;
-            $scope.clients =[{"endpoint":"urn:imei:867290030347990","registrationId":"YzPbuif9Fn","registrationDate":"2019-01-12T11:55:01+05:30","lastUpdate":"2019-01-12T12:13:43+05:30","address":"42.111.3.203:57381","lwM2mVersion":"1.0","lifetime":27,"bindingMode":"U","rootPath":"/","objectLinks":[{"url":"/","attributes":{"rt":"oma.lwm2m"}},{"url":"/1/0","attributes":{}},{"url":"/2/0","attributes":{}},{"url":"/3/0","attributes":{}},{"url":"/4/0","attributes":{}},{"url":"/5/0","attributes":{}},{"url":"/6/0","attributes":{}},{"url":"/7/0","attributes":{}},{"url":"/9","attributes":{}},{"url":"/15","attributes":{}},{"url":"/3303/0","attributes":{}},{"url":"/3304/0","attributes":{}},{"url":"/3315/0","attributes":{}},{"url":"/3330/0","attributes":{}}],"secure":false,"additionalRegistrationAttributes":{}}]
+            $scope.clients = data;
+            // $scope.clients =[{"endpoint":"urn:imei:867290030347990","registrationId":"YzPbuif9Fn","registrationDate":"2019-01-12T11:55:01+05:30","lastUpdate":"2019-01-12T12:13:43+05:30","address":"42.111.3.203:57381","lwM2mVersion":"1.0","lifetime":27,"bindingMode":"U","rootPath":"/","objectLinks":[{"url":"/","attributes":{"rt":"oma.lwm2m"}},{"url":"/1/0","attributes":{}},{"url":"/2/0","attributes":{}},{"url":"/3/0","attributes":{}},{"url":"/4/0","attributes":{}},{"url":"/5/0","attributes":{}},{"url":"/6/0","attributes":{}},{"url":"/7/0","attributes":{}},{"url":"/9","attributes":{}},{"url":"/15","attributes":{}},{"url":"/3303/0","attributes":{}},{"url":"/3304/0","attributes":{}},{"url":"/3315/0","attributes":{}},{"url":"/3330/0","attributes":{}}],"secure":false,"additionalRegistrationAttributes":{}}]
                 // HACK : we can not use ng-if="clients"
             // because of https://github.com/angular/angular.js/issues/3969
             $scope.clientslist = true;
