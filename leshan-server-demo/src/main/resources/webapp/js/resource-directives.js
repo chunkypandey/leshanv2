@@ -1,15 +1,15 @@
 /*******************************************************************************
  * Copyright (c) 2013-2015 Sierra Wireless and others.
- * 
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * and Eclipse Distribution License v1.0 which accompany this distribution.
- * 
+ *
  * The Eclipse Public License is available at
  *    http://www.eclipse.org/legal/epl-v10.html
  * and the Eclipse Distribution License is available at
  *    http://www.eclipse.org/org/documents/edl-v10.html.
- * 
+ *
  * Contributors:
  *     Sierra Wireless - initial API and implementation
  *******************************************************************************/
@@ -33,14 +33,14 @@ angular.module('resourceDirectives', [])
             scope.resource.exec  =  {tooltip : "Execute <br/>"+ scope.resource.path};
             scope.resource.execwithparams = {tooltip : "Execute with parameters<br/>"+ scope.resource.path};
             scope.resource.observe  =  {tooltip : "Observe <br/>"+ scope.resource.path};
-            
+
             scope.readable = function() {
                 if(scope.resource.def.hasOwnProperty("operations")) {
                     return scope.resource.def.operations.indexOf("R") != -1;
                 }
                 return false;
             };
-           
+
             scope.writable = function() {
                 if(scope.resource.def.instancetype != "multiple") {
                     if(scope.resource.def.hasOwnProperty("operations")) {
@@ -81,7 +81,7 @@ angular.module('resourceDirectives', [])
                             }
                             scope.resource.valuesupposed = false;
                             scope.resource.tooltip = formattedDate;
-                        }	
+                        }
                 	});
                 }).error(function(data, status, headers, config) {
                     errormessage = "Unable to start observation on resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
@@ -89,7 +89,7 @@ angular.module('resourceDirectives', [])
                     console.error(errormessage);
                 });
             };
-            
+
             scope.stopObserve = function() {
                 var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
                 $http.delete(uri)
@@ -102,19 +102,146 @@ angular.module('resourceDirectives', [])
                     console.error(errormessage);
                 });
             };
-            
-            
+
+            function generateRandomValue(max, min){
+               return Math.floor(Math.random() * (+max - +min))+ +min;
+            }
+            //
+            // scope.read = function() {
+            //     var format = scope.settings.single.format;
+            //     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
+            //     $http.get(uri, {params:{format:format}})
+            //     .success(function(data, status, headers, config) {
+            //         // manage request information
+            //     	helper.handleResponse(data, scope.resource.read, function (formattedDate){
+            //     		if (data.success && data.content) {
+            //                 if("value" in data.content) {
+            //                     // single value
+            //                     scope.resource.value = data.content.value;
+            //                 }
+            //                 else if("values" in data.content) {
+            //                     // multiple instances
+            //                     var tab = new Array();
+            //                     for (var i in data.content.values) {
+            //                         tab.push(i+"="+data.content.values[i]);
+            //                     }
+            //                     scope.resource.value = tab.join(", ");
+            //                 }
+            //                 scope.resource.valuesupposed = false;
+            //                 scope.resource.tooltip = formattedDate;
+            //             }
+            //     	});
+            //     }).error(function(data, status, headers, config) {
+            //         errormessage = "Unable to read resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
+            //         dialog.open(errormessage);
+            //         console.error(errormessage);
+            //     });
+            // };
+            //
+
+            // $scope.readSlider = function () {
+            //     $scope.sliderObj1 = sliderObj1.noUiSlider.get();
+            //     $scope.minSliderValue = $scope.sliderObj1[0];
+            //     $scope.maxSliderValue= $scope.sliderObj1[1];
+            // };
+            //
+            // $scope.resetSlider = function () {
+            //     sliderObj1.noUiSlider.set(0,24,100);
+            // };
+
+
+            function doSliderStuff(id, value, name){
+                var index = 0;
+
+                var rangeValue = [0,100];
+                var handleValue = [10,24,85];
+                var doUpdate = false;
+                var updateRange = false;
+                var updateHandleValue = false;
+                switch (name) {
+                    case "Min Range Value":
+                        rangeValue[0] = value;
+                        doUpdate = true;
+                        updateRange = true;
+                        break;
+                    case "Max Range Value":
+                        rangeValue[1] = value;
+                        updateRange = true;
+                        doUpdate = true;
+                        break;
+                    case "Min Measured Value":
+                        index =  0;
+                        updateHandleValue = true;
+                        doUpdate = true;
+                        break;
+                    case "Max Measured Value":
+                        index = 2;
+                        updateHandleValue = true;
+                        doUpdate = true;
+                        break;
+                    case "Sensor Value":
+                        index = 1;
+                        updateHandleValue = true;
+                        doUpdate = true;
+                        break;
+                }
+
+                if(doUpdate){
+                    if(id){
+                        var slider = document.getElementById(id);
+                    }
+                    if(slider){
+                        if(slider.noUiSlider){
+                            handleValue = slider.noUiSlider.get();
+                            slider.noUiSlider.destroy();
+                        }else {
+                            handleValue = [10,24,85];
+                        }
+                        if(updateHandleValue){
+                            handleValue[index] = value;
+                        }
+
+                        createSlider(handleValue, slider, rangeValue);
+                    }
+                }
+            }
+
+            function createSlider(handleData, slider, rangeValue){
+                // rangeValue = [0,100];
+                noUiSlider.create(slider, {
+                    start: handleData,
+                    behaviour: 'tap',
+                    // connect: [false,true,true,false],
+                    tooltips: true,
+                    // format: wNumb({
+                    //     decimals: 0
+                    // }),
+                    range: {
+                        'min': rangeValue[0],
+                        'max': rangeValue[1]
+                    },
+                    pips: {
+                        mode: 'positions',
+                        values: [0, 10, 20, 30, 50, 75, 100],
+                        density: 4,
+                        stepped: true
+                    }
+                });
+            }
+
             scope.read = function() {
                 var format = scope.settings.single.format;
                 var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
                 $http.get(uri, {params:{format:format}})
-                .success(function(data, status, headers, config) {
+                .error(function(data, status, headers, config) {
+                    data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
                     // manage request information
                 	helper.handleResponse(data, scope.resource.read, function (formattedDate){
                 		if (data.success && data.content) {
                             if("value" in data.content) {
                                 // single value
                                 scope.resource.value = data.content.value;
+                                    doSliderStuff(scope.parent.path,scope.resource.value,scope.resource.def.name);
                             }
                             else if("values" in data.content) {
                                 // multiple instances
@@ -126,16 +253,16 @@ angular.module('resourceDirectives', [])
                             }
                             scope.resource.valuesupposed = false;
                             scope.resource.tooltip = formattedDate;
-                        }                		
+                        }
                 	});
-                }).error(function(data, status, headers, config) {
+                }).success(function(data, status, headers, config) {
                     errormessage = "Unable to read resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
                     dialog.open(errormessage);
                     console.error(errormessage);
                 });
             };
 
-            scope.write = function() {
+           scope.write = function() {
                 $('#writeModalLabel').text(scope.resource.def.name);
                 $('#writeInputValue').val(scope.resource.value);
                 $('#writeSubmit').unbind();
@@ -196,7 +323,7 @@ angular.module('resourceDirectives', [])
 
                         $http({method: 'POST', url: "api/clients/" + $routeParams.clientId + scope.resource.path, data: value})
                         .success(function(data, status, headers, config) {
-                        	helper.handleResponse(data, scope.resource.exec);                            
+                        	helper.handleResponse(data, scope.resource.exec);
                         }).error(function(data, status, headers, config) {
                             errormessage = "Unable to execute resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
                             dialog.open(errormessage);

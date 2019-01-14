@@ -1,5 +1,5 @@
-<div class="object">
-	<accordion-group is-open="status.open">
+<div class="object" >
+	<accordion-group is-open="status.open" ng-show="object.id==3304">
 		<accordion-heading>
 			<div class="row">
 				<div class="col-md-4 object-name">{{object.name}}</div>
@@ -12,7 +12,7 @@
 		<div class = "row" ng-show="object.instancetype == 'multiple'">
 			<div class="col-md-6"></div>
 			<div class="col-md-6">
-				<div  btn-group">
+				<div  class="btn-group">
 					<button type="button" ng-click="object.create.status = null; create()"
 							tooltip-html-unsafe={{object.create.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
 							ng-class="{
