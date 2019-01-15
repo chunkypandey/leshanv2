@@ -104,7 +104,7 @@ angular.module('resourceDirectives', [])
             };
 
             // function generateRandomValue(max, min){
-            //    return Math.floor(Math.random() * (+max - +min))+ +min;
+            //     return Math.floor(Math.random() * (+max - +min))+ +min;
             // }
             //
             // scope.read = function() {
@@ -145,9 +145,25 @@ angular.module('resourceDirectives', [])
             //     $scope.maxSliderValue= $scope.sliderObj1[1];
             // };
             //
-            // $scope.resetSlider = function () {
-            //     sliderObj1.noUiSlider.set(0,24,100);
-            // };
+            scope.resetSlider = function (id) {
+                // sliderObj1.noUiSlider.set(0,24,100);
+
+                if(id){
+                    var slider = document.getElementById(id);
+                }
+                if(slider){
+                    if(slider.noUiSlider){
+                        slider.noUiSlider.destroy();
+                    }else {
+                       var handleValue = [0,0,0];
+                       var rangeValue = [0,0];
+                    }
+
+                    createSlider(handleValue, slider, rangeValue);
+                }
+
+            };
+
 
 
             function doSliderStuff(id, value, name){
@@ -229,12 +245,26 @@ angular.module('resourceDirectives', [])
                 });
             }
 
+            // scope.isItemExist = function(value){
+            //
+            //     var itemArray = [3303, 3304, 3315, 3330 ];
+            //
+            //     for(var i = 0; i<itemArray ; i++){
+            //         if(itemArray[i]==value){
+            //             return true;
+            //         }
+            //     }
+            //     return false;
+            //
+            //
+            // };
+
             scope.read = function() {
                 var format = scope.settings.single.format;
                 var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
                 $http.get(uri, {params:{format:format}})
                 .success(function(data, status, headers, config) {
-                    // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
+                     // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
                     // manage request information
                 	helper.handleResponse(data, scope.resource.read, function (formattedDate){
                 		if (data.success && data.content) {
@@ -324,6 +354,7 @@ angular.module('resourceDirectives', [])
                         $http({method: 'POST', url: "api/clients/" + $routeParams.clientId + scope.resource.path, data: value})
                         .success(function(data, status, headers, config) {
                         	helper.handleResponse(data, scope.resource.exec);
+                            scope.resetSlider(scope.parent.path);
                         }).error(function(data, status, headers, config) {
                             errormessage = "Unable to execute resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
                             dialog.open(errormessage);
