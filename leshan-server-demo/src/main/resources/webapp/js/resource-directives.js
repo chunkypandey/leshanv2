@@ -333,6 +333,7 @@ angular.module('resourceDirectives', [])
                 $http.post("api/clients/" + $routeParams.clientId+ scope.resource.path)
                 .success(function(data, status, headers, config) {
                 	helper.handleResponse(data, scope.resource.exec);
+                    scope.resetSlider(scope.parent.path);
                 }).error(function(data, status, headers, config) {
                     errormessage = "Unable to execute resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
                     dialog.open(errormessage);
