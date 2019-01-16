@@ -53,7 +53,7 @@
 								'btn-default': resource.exec.status == null,
 								'btn-danger': resource.exec.status == 'ERROR',
 								'btn-warning': resource.exec.status == 'INVALID',
-								'btn-success': resource.exec.status == 'SUCCESS' }">Exec</button>{{resource}}
+								'btn-success': resource.exec.status == 'SUCCESS' }">Exec</button>
 					<button type="button" ng-click="resource.exec.status = null; execWithParams(); "
 							tooltip-html-unsafe={{resource.execwithparams.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
 							ng-class="{
