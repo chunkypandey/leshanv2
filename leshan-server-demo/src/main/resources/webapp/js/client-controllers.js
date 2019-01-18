@@ -209,6 +209,8 @@ lwClientControllers.controller('ClientDetailCtrl', [
 
         $scope.clientId = $routeParams.clientId;
 
+
+
         // get client details
         $http.get('api/clients/' + $routeParams.clientId)
             .error(function (data, status, headers, config) {

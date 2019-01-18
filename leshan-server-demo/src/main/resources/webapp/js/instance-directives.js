@@ -37,6 +37,7 @@ angular.module('instanceDirectives', [])
 
             scope.read = function() {
                 var format = scope.settings.multi.format;
+                debugger
                 var uri = "api/clients/" + $routeParams.clientId + scope.instance.path;
                 $http.get(uri, {params:{format:format}})
                 .success(function(data, status, headers, config) {
@@ -89,6 +90,43 @@ angular.module('instanceDirectives', [])
                     console.error(errormessage);
                 });
             };
+
+            scope.writeAttribute = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'partials/write-attribute-modal.html',
+                    resolve: {
+                        object: function () {
+                            return scope.parent;
+                        },
+                        instanceId: function () {
+                            return scope.instance.id;
+                        }
+                    }
+                });
+            };
+
+            scope.writeAttribute1 = function(pmin,pmax,lt,gt,st) {
+
+                var params =  {pmin:pmin,
+                    pmax:pmax,
+                    lt:lt,
+                    gt:gt,
+                    st:st
+                }
+                debugger
+                var uri = "api/clients/" + $routeParams.clientId + scope.instance.path+'attributes';
+                $http.get(uri,params)
+                    .success(function(data, status, headers, config) {
+
+
+                      alert("sucess");
+                    }).error(function(data, status, headers, config) {
+                    errormessage = "Unable to read instance " + scope.instance.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
+                    dialog.open(errormessage);
+                    console.error(errormessage);
+                });
+            };
+
 
             scope.write = function () {
                 var modalInstance = $modal.open({

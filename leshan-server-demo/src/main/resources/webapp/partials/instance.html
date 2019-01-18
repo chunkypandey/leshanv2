@@ -32,6 +32,7 @@
 								'btn-danger': instance.read.status == 'ERROR',
 								'btn-warning': instance.read.status == 'INVALID',
 								'btn-success': instance.read.status == 'SUCCESS'}">Read</button>
+
 				</div>
 				<div class="btn-group">
 					<button type="button" ng-click="instance.write.status = null; write()"
@@ -44,7 +45,7 @@
 								'btn-warning': instance.write.status == 'INVALID',
 								'btn-success': instance.write.status == 'SUCCESS'}">Write</button>
 				</div>
-				<div class="btn-group">
+				<div class="btn-group clearfix">
 					<button type="button" ng-click="instance.del.status = null; del()"
 							tooltip-html-unsafe={{instance.del.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
 							ng-class="{
@@ -54,8 +55,12 @@
 								'btn-danger': instance.del.status == 'ERROR',
 								'btn-warning': instance.del.status == 'INVALID',
 								'btn-success': instance.del.status == 'SUCCESS'}">Delete</button>
+
+					<button type="button" class="btn btn-success float-right" ng-click="writeAttribute();">Write Attribute</button>
 				</div>
 			</div>
+
+
 		</div>
 	</div>
 	<resource ng-repeat='resource in instance.resources' resource='resource' parent='instance' settings='settings'></resource>
