@@ -16,359 +16,367 @@
 
 angular.module('resourceDirectives', [])
 
-.directive('resource', function ($compile, $routeParams, $http, dialog, $filter, lwResources, helper) {
-    return {
-        restrict: "E",
-        replace: true,
-        scope: {
-            resource: '=',
-            parent: '=',
-            settings: '='
-        },
-        templateUrl: "partials/resource.html",
-        link: function (scope, element, attrs) {
-            scope.resource.path = scope.parent.path + "/" + scope.resource.def.id;
-            scope.resource.read  =  {tooltip : "Read <br/>"   + scope.resource.path};
-            scope.resource.write =  {tooltip : "Write <br/>"  + scope.resource.path};
-            scope.resource.exec  =  {tooltip : "Execute <br/>"+ scope.resource.path};
-            scope.resource.execwithparams = {tooltip : "Execute with parameters<br/>"+ scope.resource.path};
-            scope.resource.observe  =  {tooltip : "Observe <br/>"+ scope.resource.path};
+    .directive('resource', function ($compile, $routeParams, $http, dialog, $filter, lwResources, helper) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                resource: '=',
+                parent: '=',
+                settings: '='
+            },
+            templateUrl: "partials/resource.html",
+            link: function (scope, element, attrs) {
+                scope.resource.path = scope.parent.path + "/" + scope.resource.def.id;
+                scope.resource.read = {tooltip: "Read <br/>" + scope.resource.path};
+                scope.resource.write = {tooltip: "Write <br/>" + scope.resource.path};
+                scope.resource.exec = {tooltip: "Execute <br/>" + scope.resource.path};
+                scope.resource.execwithparams = {tooltip: "Execute with parameters<br/>" + scope.resource.path};
+                scope.resource.observe = {tooltip: "Observe <br/>" + scope.resource.path};
 
-            scope.readable = function() {
-                if(scope.resource.def.hasOwnProperty("operations")) {
-                    return scope.resource.def.operations.indexOf("R") != -1;
-                }
-                return false;
-            };
-
-            scope.writable = function() {
-                if(scope.resource.def.instancetype != "multiple") {
-                    if(scope.resource.def.hasOwnProperty("operations")) {
-                        return scope.resource.def.operations.indexOf("W") != -1;
+                scope.readable = function () {
+                    if (scope.resource.def.hasOwnProperty("operations")) {
+                        return scope.resource.def.operations.indexOf("R") != -1;
                     }
-                }
-                return false;
-            };
+                    return false;
+                };
 
-            scope.executable = function() {
-                if(scope.resource.def.instancetype != "multiple") {
-                    if(scope.resource.def.hasOwnProperty("operations")) {
-                        return scope.resource.def.operations.indexOf("E") != -1;
-                    }
-                }
-                return false;
-            };
-
-            scope.startObserve = function() {
-                var format = scope.settings.single.format;
-                var uri = "api/clients/" + $routeParams.clientId + scope.resource.path+"/observe";
-                $http.post(uri, null,{params:{format:format}})
-                .success(function(data, status, headers, config) {
-                	helper.handleResponse(data, scope.resource.observe, function (formattedDate){
-                		if (data.success) {
-                            scope.resource.observed = true;
-                            if("value" in data.content) {
-                                // single value
-                                scope.resource.value = data.content.value;
-                            }
-                            else if("values" in data.content) {
-                                // multiple instances
-                                var tab = new Array();
-                                for (var i in data.content.values) {
-                                    tab.push(i+"="+data.content.values[i]);
-                                }
-                                scope.resource.value = tab.join(", ");
-                            }
-                            scope.resource.valuesupposed = false;
-                            scope.resource.tooltip = formattedDate;
+                scope.writable = function () {
+                    if (scope.resource.def.instancetype != "multiple") {
+                        if (scope.resource.def.hasOwnProperty("operations")) {
+                            return scope.resource.def.operations.indexOf("W") != -1;
                         }
-                	});
-                }).error(function(data, status, headers, config) {
-                    errormessage = "Unable to start observation on resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                    dialog.open(errormessage);
-                    console.error(errormessage);
-                });
-            };
-
-            scope.stopObserve = function() {
-                var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
-                $http.delete(uri)
-                .success(function(data, status, headers, config) {
-                    scope.resource.observed = false;
-                    scope.resource.observe.stop = "success";
-                }).error(function(data, status, headers, config) {
-                    errormessage = "Unable to stop observation on resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                    dialog.open(errormessage);
-                    console.error(errormessage);
-                });
-            };
-
-            // function generateRandomValue(max, min){
-            //     return Math.floor(Math.random() * (+max - +min))+ +min;
-            // }
-            //
-            // scope.read = function() {
-            //     var format = scope.settings.single.format;
-            //     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
-            //     $http.get(uri, {params:{format:format}})
-            //     .success(function(data, status, headers, config) {
-            //         // manage request information
-            //     	helper.handleResponse(data, scope.resource.read, function (formattedDate){
-            //     		if (data.success && data.content) {
-            //                 if("value" in data.content) {
-            //                     // single value
-            //                     scope.resource.value = data.content.value;
-            //                 }
-            //                 else if("values" in data.content) {
-            //                     // multiple instances
-            //                     var tab = new Array();
-            //                     for (var i in data.content.values) {
-            //                         tab.push(i+"="+data.content.values[i]);
-            //                     }
-            //                     scope.resource.value = tab.join(", ");
-            //                 }
-            //                 scope.resource.valuesupposed = false;
-            //                 scope.resource.tooltip = formattedDate;
-            //             }
-            //     	});
-            //     }).error(function(data, status, headers, config) {
-            //         errormessage = "Unable to read resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-            //         dialog.open(errormessage);
-            //         console.error(errormessage);
-            //     });
-            // };
-            //
-
-            // $scope.readSlider = function () {
-            //     $scope.sliderObj1 = sliderObj1.noUiSlider.get();
-            //     $scope.minSliderValue = $scope.sliderObj1[0];
-            //     $scope.maxSliderValue= $scope.sliderObj1[1];
-            // };
-            //
-            scope.resetSlider = function (id) {
-                // sliderObj1.noUiSlider.set(0,24,100);
-
-                if(id){
-                    var slider = document.getElementById(id);
-                }
-                if(slider){
-                    if(slider.noUiSlider){
-                        slider.noUiSlider.destroy();
-                    }else {
-                       var handleValue = [0,0,0];
-                       var rangeValue = [0,0];
                     }
+                    return false;
+                };
 
-                    createSlider(handleValue, slider, rangeValue);
-                }
+                scope.executable = function () {
+                    if (scope.resource.def.instancetype != "multiple") {
+                        if (scope.resource.def.hasOwnProperty("operations")) {
+                            return scope.resource.def.operations.indexOf("E") != -1;
+                        }
+                    }
+                    return false;
+                };
 
-            };
+                scope.startObserve = function () {
+                    var format = scope.settings.single.format;
+                    var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
+                    $http.post(uri, null, {params: {format: format}})
+                        .success(function (data, status, headers, config) {
+                            helper.handleResponse(data, scope.resource.observe, function (formattedDate) {
+                                if (data.success) {
+                                    scope.resource.observed = true;
+                                    if ("value" in data.content) {
+                                        // single value
+                                        scope.resource.value = data.content.value;
+                                    } else if ("values" in data.content) {
+                                        // multiple instances
+                                        var tab = new Array();
+                                        for (var i in data.content.values) {
+                                            tab.push(i + "=" + data.content.values[i]);
+                                        }
+                                        scope.resource.value = tab.join(", ");
+                                    }
+                                    scope.resource.valuesupposed = false;
+                                    scope.resource.tooltip = formattedDate;
+                                }
+                            });
+                        }).error(function (data, status, headers, config) {
+                        errormessage = "Unable to start observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                        dialog.open(errormessage);
+                        console.error(errormessage);
+                    });
+                };
 
+                scope.stopObserve = function () {
+                    var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
+                    $http.delete(uri)
+                        .success(function (data, status, headers, config) {
+                            scope.resource.observed = false;
+                            scope.resource.observe.stop = "success";
+                        }).error(function (data, status, headers, config) {
+                        errormessage = "Unable to stop observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                        dialog.open(errormessage);
+                        console.error(errormessage);
+                    });
+                };
 
+                // function generateRandomValue(max, min){
+                //     return Math.floor(Math.random() * (+max - +min))+ +min;
+                // }
+                //
+                // scope.read = function() {
+                //     var format = scope.settings.single.format;
+                //     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
+                //     $http.get(uri, {params:{format:format}})
+                //     .success(function(data, status, headers, config) {
+                //         // manage request information
+                //     	helper.handleResponse(data, scope.resource.read, function (formattedDate){
+                //     		if (data.success && data.content) {
+                //                 if("value" in data.content) {
+                //                     // single value
+                //                     scope.resource.value = data.content.value;
+                //                 }
+                //                 else if("values" in data.content) {
+                //                     // multiple instances
+                //                     var tab = new Array();
+                //                     for (var i in data.content.values) {
+                //                         tab.push(i+"="+data.content.values[i]);
+                //                     }
+                //                     scope.resource.value = tab.join(", ");
+                //                 }
+                //                 scope.resource.valuesupposed = false;
+                //                 scope.resource.tooltip = formattedDate;
+                //             }
+                //     	});
+                //     }).error(function(data, status, headers, config) {
+                //         errormessage = "Unable to read resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
+                //         dialog.open(errormessage);
+                //         console.error(errormessage);
+                //     });
+                // };
+                //
 
-            function doSliderStuff(id, value, name){
-                var index = 0;
+                // $scope.readSlider = function () {
+                //     $scope.sliderObj1 = sliderObj1.noUiSlider.get();
+                //     $scope.minSliderValue = $scope.sliderObj1[0];
+                //     $scope.maxSliderValue= $scope.sliderObj1[1];
+                // };
+                //
+                scope.resetSlider = function (id) {
+                    // sliderObj1.noUiSlider.set(0,24,100);
 
-                var rangeValue = [0,100];
-                var handleValue = [10,24,85];
-                var doUpdate = false;
-                var updateRange = false;
-                var updateHandleValue = false;
-                switch (name) {
-                    case "Min Range Value":
-                        rangeValue[0] = value;
-                        doUpdate = true;
-                        updateRange = true;
-                        break;
-                    case "Max Range Value":
-                        rangeValue[1] = value;
-                        updateRange = true;
-                        doUpdate = true;
-                        break;
-                    case "Min Measured Value":
-                        index =  0;
-                        updateHandleValue = true;
-                        doUpdate = true;
-                        break;
-                    case "Max Measured Value":
-                        index = 2;
-                        updateHandleValue = true;
-                        doUpdate = true;
-                        break;
-                    case "Sensor Value":
-                        index = 1;
-                        updateHandleValue = true;
-                        doUpdate = true;
-                        break;
-                }
-
-                if(doUpdate){
-                    if(id){
+                    if (id) {
                         var slider = document.getElementById(id);
                     }
-                    if(slider){
-                        if(slider.noUiSlider){
-                            handleValue = slider.noUiSlider.get();
+                    if (slider) {
+                        if (slider.noUiSlider) {
                             slider.noUiSlider.destroy();
-                        }else {
-                            handleValue = [10,24,85];
-                        }
-                        if(updateHandleValue){
-                            handleValue[index] = value;
+                        } else {
+                            var handleValue = [0, 0, 0];
+                            var rangeValue = [0, 0];
                         }
 
                         createSlider(handleValue, slider, rangeValue);
                     }
-                }
-            }
 
-            function createSlider(handleData, slider, rangeValue){
-                // rangeValue = [0,100];
-                noUiSlider.create(slider, {
-                    start: handleData,
-                    behaviour: 'tap',
-                    // connect: [false,true,true,false],
-                    tooltips: true,
-                    // format: wNumb({
-                    //     decimals: 0
-                    // }),
-                    range: {
-                        'min': rangeValue[0],
-                        'max': rangeValue[1]
-                    },
-                    pips: {
-                        mode: 'positions',
-                        values: [0, 10, 20, 30, 50, 75, 100],
-                        density: 4,
-                        stepped: true
+                };
+
+
+                function doSliderStuff(id, value, name) {
+                    var index = 0;
+
+                    var rangeValue = [0, 100];
+                    var handleValue = [10, 24, 85];
+                    var doUpdate = false;
+                    var updateRange = false;
+                    var updateHandleValue = false;
+                    switch (name) {
+                        case "Min Range Value":
+                            rangeValue[0] = value;
+                            doUpdate = true;
+                            updateRange = true;
+                            break;
+                        case "Max Range Value":
+                            rangeValue[1] = value;
+                            updateRange = true;
+                            doUpdate = true;
+                            break;
+                        case "Min Measured Value":
+                            index = 0;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                        case "Max Measured Value":
+                            index = 2;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                        case "Sensor Value":
+                            index = 1;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
                     }
-                });
-            }
 
-            // scope.isItemExist = function(value){
-            //
-            //     var itemArray = [3303, 3304, 3315, 3330 ];
-            //
-            //     for(var i = 0; i<itemArray ; i++){
-            //         if(itemArray[i]==value){
-            //             return true;
-            //         }
-            //     }
-            //     return false;
-            //
-            //
-            // };
-
-
-            /******************HARD CODED DATA**********************/
-
-
-            scope.read = function() {
-                var format = scope.settings.single.format;
-                var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
-                $http.get(uri, {params:{format:format}})
-                .success(function(data, status, headers, config) {
-                      //data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
-                    // manage request information
-                	helper.handleResponse(data, scope.resource.read, function (formattedDate){
-                		if (data.success && data.content) {
-                            if("value" in data.content) {
-                                // single value
-                                scope.resource.value = data.content.value;
-                                    doSliderStuff(scope.parent.path,scope.resource.value,scope.resource.def.name);
-                            }
-                            else if("values" in data.content) {
-                                // multiple instances
-                                var tab = new Array();
-                                for (var i in data.content.values) {
-                                    tab.push(i+"="+data.content.values[i]);
-                                }
-                                scope.resource.value = tab.join(", ");
-                            }
-                            scope.resource.valuesupposed = false;
-                            scope.resource.tooltip = formattedDate;
+                    if (doUpdate) {
+                        if (id) {
+                            var slider = document.getElementById(id);
                         }
-                	});
-                }).error(function(data, status, headers, config) {
-                    errormessage = "Unable to read resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                    dialog.open(errormessage);
-                    console.error(errormessage);
-                });
-            };
+                        if (slider) {
+                            if (slider.noUiSlider) {
+                                handleValue = slider.noUiSlider.get();
+                                slider.noUiSlider.destroy();
+                            } else {
+                                handleValue = [10, 24, 85];
+                            }
+                            if (updateHandleValue) {
+                                handleValue[index] = value;
+                            }
 
-           scope.write = function() {
-                $('#writeModalLabel').text(scope.resource.def.name);
-                $('#writeInputValue').val(scope.resource.value);
-                $('#writeSubmit').unbind();
-                $('#writeSubmit').click(function(e){
-                    e.preventDefault();
-                    var value = $('#writeInputValue').val();
+                            createSlider(handleValue, slider, rangeValue);
+                        }
+                    }
+                }
 
-                    if(value != undefined) {
-                        $('#writeModal').modal('hide');
+                function createSlider(handleData, slider, rangeValue) {
+                    // rangeValue = [0,100];
+                    noUiSlider.create(slider, {
+                        start: handleData,
+                        behaviour: 'tap',
+                        // connect: [false,true,true,false],
+                        tooltips: true,
+                        // format: wNumb({
+                        //     decimals: 0
+                        // }),
+                        range: {
+                            'min': rangeValue[0],
+                            'max': rangeValue[1]
+                        },
+                        pips: {
+                            mode: 'positions',
+                            values: [0, 10, 20, 30, 50, 75, 100],
+                            density: 4,
+                            stepped: true
+                        }
+                    });
+                }
 
-                        var rsc = {};
-                        rsc["id"] = scope.resource.def.id;
-                        value = lwResources.getTypedValue(value, scope.resource.def.type);
-                        rsc["value"] = value;
+                // scope.isItemExist = function(value){
+                //
+                //     var itemArray = [3303, 3304, 3315, 3330 ];
+                //
+                //     for(var i = 0; i<itemArray ; i++){
+                //         if(itemArray[i]==value){
+                //             return true;
+                //         }
+                //     }
+                //     return false;
+                //
+                //
+                // };
 
-                        var format = scope.settings.single.format;
-                        $http({method: 'PUT', url: "api/clients/" + $routeParams.clientId + scope.resource.path, data: rsc, headers:{'Content-Type': 'application/json'},params:{format:format}})
-                        .success(function(data, status, headers, config) {
-                        	helper.handleResponse(data, scope.resource.write, function (formattedDate){
-                        		if (data.success) {
-                                    scope.resource.value = value;
-                                    scope.resource.valuesupposed = true;
+
+                /******************HARD CODED DATA**********************/
+
+
+                scope.read = function () {
+                    var format = scope.settings.single.format;
+                    var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
+                    $http.get(uri, {params: {format: format}})
+                        .success(function (data, status, headers, config) {
+                            //data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
+                            // manage request information
+                            helper.handleResponse(data, scope.resource.read, function (formattedDate) {
+                                if (data.success && data.content) {
+                                    if ("value" in data.content) {
+                                        // single value
+                                        scope.resource.value = data.content.value;
+                                        doSliderStuff(scope.parent.path, scope.resource.value, scope.resource.def.name);
+                                    } else if ("values" in data.content) {
+                                        // multiple instances
+                                        var tab = new Array();
+                                        for (var i in data.content.values) {
+                                            tab.push(i + "=" + data.content.values[i]);
+                                        }
+                                        scope.resource.value = tab.join(", ");
+                                    }
+                                    scope.resource.valuesupposed = false;
                                     scope.resource.tooltip = formattedDate;
                                 }
-                        	});
-                        }).error(function(data, status, headers, config) {
-                            errormessage = "Unable to write resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                            dialog.open(errormessage);
-                            console.error(errormessage);
-                        });
-                    }
-                });
+                            });
+                        }).error(function (data, status, headers, config) {
+                        errormessage = "Unable to read resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                        dialog.open(errormessage);
+                        console.error(errormessage);
+                    });
+                };
 
-                $('#writeModal').modal('show');
-            };
 
-            scope.exec = function() {
-                $http.post("api/clients/" + $routeParams.clientId+ scope.resource.path)
-                .success(function(data, status, headers, config) {
-                	helper.handleResponse(data, scope.resource.exec);
-                    scope.resetSlider(scope.parent.path);
-                }).error(function(data, status, headers, config) {
-                    errormessage = "Unable to execute resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                    dialog.open(errormessage);
-                    console.error(errormessage);
-                });
-            };
+                scope.write = function () {
+                    $('#writeModalLabel').text(scope.resource.def.name);
+                    $('#writeInputValue').val(scope.resource.value);
+                    $('#writeSubmit').unbind();
+                    $('#writeSubmit').click(function (e) {
+                        e.preventDefault();
+                        var value = $('#writeInputValue').val();
 
-            scope.execWithParams = function() {
-                $('#writeModalLabel').text(scope.resource.def.name);
-                $('#writeInputValue').val(scope.resource.value);
-                $('#writeSubmit').unbind();
-                $('#writeSubmit').click(function(e){
-                    e.preventDefault();
-                    var value = $('#writeInputValue').val();
+                        if (value != undefined) {
+                            $('#writeModal').modal('hide');
 
-                    if(value) {
-                        $('#writeModal').modal('hide');
+                            var rsc = {};
+                            rsc["id"] = scope.resource.def.id;
+                            value = lwResources.getTypedValue(value, scope.resource.def.type);
+                            rsc["value"] = value;
 
-                        $http({method: 'POST', url: "api/clients/" + $routeParams.clientId + scope.resource.path, data: value})
-                        .success(function(data, status, headers, config) {
-                        	helper.handleResponse(data, scope.resource.exec);
+                            var format = scope.settings.single.format;
+                            $http({
+                                method: 'PUT',
+                                url: "api/clients/" + $routeParams.clientId + scope.resource.path,
+                                data: rsc,
+                                headers: {'Content-Type': 'application/json'},
+                                params: {format: format}
+                            })
+                                .success(function (data, status, headers, config) {
+                                    helper.handleResponse(data, scope.resource.write, function (formattedDate) {
+                                        if (data.success) {
+                                            scope.resource.value = value;
+                                            scope.resource.valuesupposed = true;
+                                            scope.resource.tooltip = formattedDate;
+                                        }
+                                    });
+                                }).error(function (data, status, headers, config) {
+                                errormessage = "Unable to write resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                                dialog.open(errormessage);
+                                console.error(errormessage);
+                            });
+                        }
+                    });
+
+                    $('#writeModal').modal('show');
+                };
+
+                scope.exec = function () {
+                    $http.post("api/clients/" + $routeParams.clientId + scope.resource.path)
+                        .success(function (data, status, headers, config) {
+                            helper.handleResponse(data, scope.resource.exec);
                             scope.resetSlider(scope.parent.path);
-                        }).error(function(data, status, headers, config) {
-                            errormessage = "Unable to execute resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                            dialog.open(errormessage);
-                            console.error(errormessage);
-                        });
-                    }
-                });
-                $('#writeModal').modal('show');
-            };
-        }
-    };
-});
+                        }).error(function (data, status, headers, config) {
+                        errormessage = "Unable to execute resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                        dialog.open(errormessage);
+                        console.error(errormessage);
+                    });
+                };
+
+                scope.execWithParams = function () {
+                    $('#writeModalLabel').text(scope.resource.def.name);
+                    $('#writeInputValue').val(scope.resource.value);
+                    $('#writeSubmit').unbind();
+                    $('#writeSubmit').click(function (e) {
+                        e.preventDefault();
+                        var value = $('#writeInputValue').val();
+
+                        if (value) {
+                            $('#writeModal').modal('hide');
+
+                            $http({
+                                method: 'POST',
+                                url: "api/clients/" + $routeParams.clientId + scope.resource.path,
+                                data: value
+                            })
+                                .success(function (data, status, headers, config) {
+                                    helper.handleResponse(data, scope.resource.exec);
+                                    scope.resetSlider(scope.parent.path);
+                                }).error(function (data, status, headers, config) {
+                                errormessage = "Unable to execute resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                                dialog.open(errormessage);
+                                console.error(errormessage);
+                            });
+                        }
+                    });
+                    $('#writeModal').modal('show');
+                };
+            }
+        };
+    });
