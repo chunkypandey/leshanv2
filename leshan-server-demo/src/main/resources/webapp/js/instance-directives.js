@@ -91,41 +91,65 @@ angular.module('instanceDirectives', [])
                 });
             };
 
-            scope.writeAttribute = function () {
-                var modalInstance = $modal.open({
+
+
+            /*******************************OUR CUSTOM CODE STARTS HERE**********************/
+            scope.openWriteAttributeModal = function () {
+                 scope.modalInstance = $modal.open({
                     templateUrl: 'partials/write-attribute-modal.html',
-                    resolve: {
-                        object: function () {
-                            return scope.parent;
-                        },
-                        instanceId: function () {
-                            return scope.instance.id;
+                    scope: scope
+                });
+            };
+
+            scope.closeWriteAttributeModal = function () {
+                 scope.modalInstance.close();
+            };
+
+            scope.writeAttribute = function(pmin,pmax,lt,gt,st) {
+
+                var flag = false;
+
+                if(pmin && pmax && lt && gt && st){
+
+                    if(pmin>pmax){
+                        alert("P-Min can't be greater than P-Max !!");
+                    }else{
+                        flag = true;
+                    }
+                }else {
+                    alert("All Fiels Required !!");
+                }
+
+                if(flag){
+                    var path=  "";
+
+                    for(var i in scope.instance.resources){
+                        if(scope.instance.resources[i].id==5700){
+                            path = scope.instance.resources[i].path;
                         }
                     }
-                });
-            };
 
-            scope.writeAttribute1 = function(pmin,pmax,lt,gt,st) {
+                    var uri = "api/clients/" + $routeParams.clientId + path +'/attributes?pmin='+pmin+'&pmax='+pmax+'&lt='+lt+'&gt='+gt+'&st='+st;
+                    $http.post(uri)
+                        .success(function(data, status, headers, config) {
 
-                var params =  {pmin:pmin,
-                    pmax:pmax,
-                    lt:lt,
-                    gt:gt,
-                    st:st
+
+                            alert("sucess");
+                        }).error(function(data, status, headers, config) {
+                        errormessage = "Unable to read instance " + scope.instance.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
+                        dialog.open(errormessage);
+                        console.error(errormessage);
+                    });
                 }
-                debugger
-                var uri = "api/clients/" + $routeParams.clientId + scope.instance.path+'attributes';
-                $http.get(uri,params)
-                    .success(function(data, status, headers, config) {
 
-
-                      alert("sucess");
-                    }).error(function(data, status, headers, config) {
-                    errormessage = "Unable to read instance " + scope.instance.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                    dialog.open(errormessage);
-                    console.error(errormessage);
-                });
             };
+
+
+
+
+            /*******************************OUR CUSTOM CODE ENDS HERE**********************/
+
+
 
 
             scope.write = function () {

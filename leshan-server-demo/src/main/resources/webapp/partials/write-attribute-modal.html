@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3 class="modal-title">Set Attributes</h3>
 </div>
-<form class="form form-horizontal" ng-submit="submit()">
+<form class="form form-horizontal">
     <div class="modal-body">
 
         <!-- P-MIN -->
@@ -37,6 +37,6 @@
 </form>
 
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-primary" ng-click="writeAttribute1(pmin,pmax,lt,gt,st)">Send</button>
+    <button class="btn btn-default" ng-click="closeWriteAttributeModal()">Cancel</button>
+    <button class="btn btn-primary" ng-click="writeAttribute(pmin,pmax,lt,gt,st);">Send</button>
 </div>
