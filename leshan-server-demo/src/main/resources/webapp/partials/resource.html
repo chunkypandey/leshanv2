@@ -109,10 +109,8 @@
                         <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-2">
-            </div>
+
 
             <div class="col-lg-2">
                 <button type="button" class="btn btn-success float-right" ng-if="$first"
@@ -120,6 +118,11 @@
                     Write Attribute
                 </button>
             </div>
+            </div>
+
+            <div class="col-lg-2">
+            </div>
+
             <div class="col-lg-2">
                 <div ng-show="executable()" ng-if="resource.id==5605" class="btn-group">
                     <button type="button" ng-click="resource.exec.status = null; exec();"
