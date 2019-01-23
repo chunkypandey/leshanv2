@@ -1,31 +1,33 @@
+
 <div>
-    <div class="row">
-        <div class="col-md-4 instance-name">{{instance.name}}</div>
-        <div class="col-md-1 text-muted small">{{instance.path}}</div>
-        <div class="col-md-1 text-muted small"><span ng-if="instance.observed"
-                                                     class="glyphicon glyphicon-eye-open"></span></div>
-        <div class="col-md-6">
-            <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group">
-                    <button type="button" ng-click="instance.observe.status = null; startObserve()"
-                            tooltip-html-unsafe={{instance.observe.tooltip}} tooltip-placement="right"
-                            tooltip-animation="false" tooltip-append-to-body="true"
-                            ng-class="{
-								'btn': true,
-								'btn-xs': true,
-								'btn-default': instance.observe.status == null,
-								'btn-danger': instance.observe.status == 'ERROR',
-								'btn-warning': instance.observe.status == 'INVALID',
-								'btn-success': instance.observe.status == 'SUCCESS'}">Observe <span
-                            class="glyphicon glyphicon-play"></span></button>
-                    <button type="button" ng-click="stopObserve()"
-                            ng-class="{
-								'btn': true,
-								'btn-xs': true,
-								'btn-default': instance.observe.stop == null,
-								'btn-success': instance.observe.stop == 'success' }"><span
-                            class="glyphicon glyphicon-stop"></span></button>
-                </div>
+    <!--<div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-4 instance-name">{{instance.name}}</div>-->
+        <!--<div class="col-md-1 text-muted small">{{instance.path}}</div>-->
+        <!--<div class="col-md-1 text-muted small"><span ng-if="instance.observed"-->
+                                                     <!--class="glyphicon glyphicon-eye-open"></span></div>-->
+        <!--<div class="col-md-6">-->
+            <!--<div class="btn-toolbar" role="toolbar">-->
+                <!--<div class="btn-group">-->
+                    <!--<button type="button" ng-click="instance.observe.status = null; startObserve()"-->
+                            <!--tooltip-html-unsafe={{instance.observe.tooltip}} tooltip-placement="right"-->
+                            <!--tooltip-animation="false" tooltip-append-to-body="true"-->
+                            <!--ng-class="{-->
+								<!--'btn': true,-->
+								<!--'btn-xs': true,-->
+								<!--'btn-default': instance.observe.status == null,-->
+								<!--'btn-danger': instance.observe.status == 'ERROR',-->
+								<!--'btn-warning': instance.observe.status == 'INVALID',-->
+								<!--'btn-success': instance.observe.status == 'SUCCESS'}">Observe <span-->
+                            <!--class="glyphicon glyphicon-play"></span></button>-->
+                    <!--<button type="button" ng-click="stopObserve()"-->
+                            <!--ng-class="{-->
+								<!--'btn': true,-->
+								<!--'btn-xs': true,-->
+								<!--'btn-default': instance.observe.stop == null,-->
+								<!--'btn-success': instance.observe.stop == 'success' }"><span-->
+                            <!--class="glyphicon glyphicon-stop"></span></button>-->
+                <!--</div>-->
                 <!--<div class="btn-group">-->
                     <!--<button type="button" ng-click="instance.read.status = null; read()"-->
                             <!--tooltip-html-unsafe={{instance.read.tooltip}} tooltip-placement="right"-->
@@ -71,11 +73,11 @@
                     <!--</button>-->
                 <!--</div>-->
             <!--</div>-->
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
+
+
     <span>
-
-
 
     <resource ng-repeat='resource in instance.resources' resource='resource' parent='instance'
               settings='settings'></resource>
@@ -91,5 +93,5 @@
     <br>
     <br>
 
-
 </div>
+
