@@ -367,11 +367,7 @@ angular.module('resourceDirectives', [])
                     if(flag){
                         var path=  "";
 
-                        for(var i in scope.instance.resources){
-                            if(scope.instance.resources[i].id==5700){
-                                path = scope.instance.resources[i].path;
-                            }
-                        }
+                        path = scope.resource.path;
 
                         var uri = "api/clients/" + $routeParams.clientId + path +'/attributes?pmin='+pmin+'&pmax='+pmax+'&lt='+lt+'&gt='+gt+'&st='+st;
                         $http.put(uri)
