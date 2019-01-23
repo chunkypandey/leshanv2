@@ -130,7 +130,7 @@ angular.module('instanceDirectives', [])
                     }
 
                     var uri = "api/clients/" + $routeParams.clientId + path +'/attributes?pmin='+pmin+'&pmax='+pmax+'&lt='+lt+'&gt='+gt+'&st='+st;
-                    $http.post(uri)
+                    $http.put(uri)
                         .success(function(data, status, headers, config) {
 
 
