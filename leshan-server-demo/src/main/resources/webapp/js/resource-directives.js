@@ -266,7 +266,7 @@ angular.module('resourceDirectives', [])
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
                     $http.get(uri, {params: {format: format}})
                         .success(function (data, status, headers, config) {
-                            data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
+                            // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
                             // manage request information
                             helper.handleResponse(data, scope.resource.read, function (formattedDate) {
                                 if (data.success && data.content) {
