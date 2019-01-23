@@ -335,8 +335,7 @@ public class ClientServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] path = StringUtils.split(req.getPathInfo(), '/');
         String clientEndpoint = path[0];
 
@@ -374,6 +373,7 @@ public class ClientServlet extends HttpServlet {
             handleException(e, resp);
         }
     }
+
 
     private void processDeviceResponse(HttpServletRequest req, HttpServletResponse resp, LwM2mResponse cResponse)
             throws IOException {

@@ -14,17 +14,17 @@
 		<div class = "row" ng-show="object.instancetype == 'multiple'">
 			<div class="col-md-6"></div>
 			<div class="col-md-6">
-				<div  class="btn-group">
-					<button type="button" ng-click="object.create.status = null; create()"
-							tooltip-html-unsafe={{object.create.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
-							ng-class="{
-								'btn': true,
-								'btn-xs': true,
-								'btn-default': object.create.status == null,
-								'btn-danger': object.create.status == 'ERROR',
-								'btn-warning': object.create.status == 'INVALID',
-								'btn-success': object.create.status == 'SUCCESS' }">Create New Instance</button>
-				</div>
+				<!--<div  class="btn-group">-->
+					<!--<button type="button" ng-click="object.create.status = null; create()"-->
+							<!--tooltip-html-unsafe={{object.create.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"-->
+							<!--ng-class="{-->
+								<!--'btn': true,-->
+								<!--'btn-xs': true,-->
+								<!--'btn-default': object.create.status == null,-->
+								<!--'btn-danger': object.create.status == 'ERROR',-->
+								<!--'btn-warning': object.create.status == 'INVALID',-->
+								<!--'btn-success': object.create.status == 'SUCCESS' }">Create New Instance</button>-->
+				<!--</div>-->
 			</div>
 		</div>
 		<instance ng-repeat='instance in object.instances' instance='instance' parent='object' settings='settings'></instance>
