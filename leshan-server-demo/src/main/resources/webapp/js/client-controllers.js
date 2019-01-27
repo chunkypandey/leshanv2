@@ -204,6 +204,19 @@ lwClientControllers.controller('ClientDetailCtrl', [
             }
         });
 
+        /**********Admin + Sensor*************/
+
+        $scope.selectObjectTypePanel = function(removeId,addId){
+
+            $scope.showObjectType = addId;
+            angular.element('#'+removeId).removeClass('active');
+            angular.element('#'+addId).addClass('active');
+        };
+
+        /**********Admin + Sensor*************/
+
+        $scope.selectObjectTypePanel('adminPanel','sensorPanel');
+
         // default format
         $scope.settings = {};
         $scope.settings.multi = {format: "TLV"};

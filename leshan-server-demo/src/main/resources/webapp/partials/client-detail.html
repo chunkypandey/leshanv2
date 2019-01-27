@@ -37,9 +37,26 @@
 		</span>
         </ol>
 
-        <accordion close-others=false>
-            <object ng-repeat='object in objects' object='object' settings='settings'></object>
+        <!--/**********Admin + Sensor*************-->
+
+        <div class="container">
+            <ul class="nav nav-tabs" id="objectPanel">
+                <li role="presentation" id="sensorPanel" style="float: right"><a ng-click="selectObjectTypePanel('adminPanel','sensorPanel');">Sensor</a>
+                </li>
+                <li role="presentation" id="adminPanel" style="float: right"><a
+                        ng-click="selectObjectTypePanel('sensorPanel','adminPanel')">Admin</a></li>
+            </ul>
+        </div>
+        <accordion close-others=false ng-show="showObjectType=='sensorPanel'">
+            <object ng-repeat='object in objects' ng-if="object.id==3303 || object.id==3304 || object.id==3315" object='object' settings='settings'></object>
         </accordion>
+
+        <accordion close-others=false  ng-show="showObjectType=='adminPanel'">
+            <object ng-repeat='object in objects'  ng-if="object.id==1 || object.id==2 || object.id==3"  object='object' settings='settings'></object>
+        </accordion>
+
+        <!--/**********Admin + Sensor*************-->
+
 
         <!-- CoAP logs -->
 
@@ -122,7 +139,4 @@
             </div>
         </div>
     </div>
-
-
-    <p>{{abc}}</p>
 </div>
