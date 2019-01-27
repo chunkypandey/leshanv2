@@ -16,12 +16,13 @@
 
 var myModule = angular.module('uiDialogServices', []);
 
-myModule.factory('dialog', function() {
+myModule.factory('dialog', function(toaster) {
   var serviceInstance = {};
   
   serviceInstance.open = function (message) {
-      $('#messageModalLabel').text(message);
-      $('#messageModal').modal('show');
+      // $('#messageModalLabel').text(message);
+      // $('#messageModal').modal('show');
+      toaster.pop("error", message);
   };
   return serviceInstance;
 });
