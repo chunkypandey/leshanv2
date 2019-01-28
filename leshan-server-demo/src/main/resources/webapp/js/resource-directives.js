@@ -337,7 +337,7 @@ angular.module('resourceDirectives', [])
                     $('#writeModal').modal('show');
                 };
 
-                /*******************************OUR CUSTOM CODE STARTS HERE**********************/
+                /*******************************Write Attribute STARTS HERE**********************/
                 scope.openWriteAttributeModal = function () {
                     scope.modalInstance = $modal.open({
                         templateUrl: 'partials/write-attribute-modal.html',
@@ -387,7 +387,7 @@ angular.module('resourceDirectives', [])
 
 
 
-                /*******************************OUR CUSTOM CODE ENDS HERE**********************/
+                /*******************************Write Attribute ENDS HERE**********************/
 
                 scope.exec = function () {
                     $http.post("api/clients/" + $routeParams.clientId + scope.resource.path)
