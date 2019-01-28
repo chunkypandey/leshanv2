@@ -213,9 +213,9 @@ lwClientControllers.controller('ClientDetailCtrl', [
             angular.element('#'+addId).addClass('active');
         };
 
-        /**********Admin + Sensor*************/
-
         $scope.selectObjectTypePanel('adminPanel','sensorPanel');
+
+        /**********Admin + Sensor*************/
 
         // default format
         $scope.settings = {};
