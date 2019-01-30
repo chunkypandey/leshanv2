@@ -92,7 +92,59 @@ angular.module('instanceDirectives', [])
             };
 
 
+            /*******************************Write Attribute STARTS HERE**********************/
 
+            scope.openWriteAttributeModal = function (resourcePath) {
+                scope.resourcePath = resourcePath;
+                scope.modalInstance = $modal.open({
+                    templateUrl: 'partials/write-attribute-modal.html',
+                    scope: scope
+                });
+            };
+
+            scope.closeWriteAttributeModal = function () {
+                scope.modalInstance.close();
+            };
+
+            scope.writeAttribute = function(pmin,pmax,lt,gt,st) {
+
+                var flag = false;
+
+                if(pmin && pmax && lt && gt && st){
+
+                    if(pmin>pmax){
+                        alert("P-Min can't be greater than P-Max !!");
+                    }else{
+                        flag = true;
+                    }
+                }else {
+                    alert("All Fiels Required !!");
+                }
+
+                if(flag){
+                    // var path=  "";
+
+                    var path = scope.instance.path+'/'+5700;
+
+                    var uri = "api/clients/" + $routeParams.clientId + path +'/attributes?pmin='+pmin+'&pmax='+pmax+'&lt='+lt+'&gt='+gt+'&st='+st;
+                    $http.put(uri)
+                        .success(function(data, status, headers, config) {
+
+
+                            alert("sucess");
+                        }).error(function(data, status, headers, config) {
+                        errormessage = "Unable to read instance " + scope.instance.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
+                        dialog.open(errormessage);
+                        console.log(errormessage);
+                    });
+                }
+
+            };
+
+
+
+
+            /*******************************Write Attribute ENDS HERE**********************/
 
 
 

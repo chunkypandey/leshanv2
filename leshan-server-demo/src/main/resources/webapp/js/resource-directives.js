@@ -27,12 +27,18 @@ angular.module('resourceDirectives', [])
             },
             templateUrl: "partials/resource.html",
             link: function (scope, element, attrs) {
-                scope.resource.path = scope.parent.path + "/" + scope.resource.def.id;
-                scope.resource.read = {tooltip: "Read <br/>" + scope.resource.path};
-                scope.resource.write = {tooltip: "Write <br/>" + scope.resource.path};
-                scope.resource.exec = {tooltip: "Execute <br/>" + scope.resource.path};
-                scope.resource.execwithparams = {tooltip: "Execute with parameters<br/>" + scope.resource.path};
-                scope.resource.observe = {tooltip: "Observe <br/>" + scope.resource.path};
+               if(scope.resource){
+
+                   scope.resource.path = scope.parent.path + "/" + scope.resource.def.id;
+                   scope.resource.read = {tooltip: "Read <br/>" + scope.resource.path};
+                   scope.resource.write = {tooltip: "Write <br/>" + scope.resource.path};
+                   scope.resource.exec = {tooltip: "Execute <br/>" + scope.resource.path};
+                   scope.resource.execwithparams = {tooltip: "Execute with parameters<br/>" + scope.resource.path};
+                   scope.resource.observe = {tooltip: "Observe <br/>" + scope.resource.path};
+
+
+
+               }
 
                 scope.readable = function () {
                     if (scope.resource.def.hasOwnProperty("operations")) {
@@ -63,13 +69,19 @@ angular.module('resourceDirectives', [])
                     var format = scope.settings.single.format;
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
                     $http.post(uri, null, {params: {format: format}})
-                        .success(function (data, status, headers, config) {
+                        .error(function (data, status, headers, config) {
+
+                            data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(10,100)}};
+                            //
                             helper.handleResponse(data, scope.resource.observe, function (formattedDate) {
                                 if (data.success) {
                                     scope.resource.observed = true;
                                     if ("value" in data.content) {
-                                        // single value
+
                                         scope.resource.value = data.content.value;
+
+                                        // single value
+                                        doSliderStuff(scope.parent.path, scope.resource.value, scope.resource.def.name);
                                     } else if ("values" in data.content) {
                                         // multiple instances
                                         var tab = new Array();
@@ -82,7 +94,8 @@ angular.module('resourceDirectives', [])
                                     scope.resource.tooltip = formattedDate;
                                 }
                             });
-                        }).error(function (data, status, headers, config) {
+                        }).success(function (data, status, headers, config) {
+
                         errormessage = "Unable to start observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
                         console.error(errormessage);
@@ -92,20 +105,20 @@ angular.module('resourceDirectives', [])
                 scope.stopObserve = function () {
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
                     $http.delete(uri)
-                        .success(function (data, status, headers, config) {
+                        .error(function (data, status, headers, config) {
                             scope.resource.observed = false;
                             scope.resource.observe.stop = "success";
-                        }).error(function (data, status, headers, config) {
+                        }).success(function (data, status, headers, config) {
                         errormessage = "Unable to stop observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
                         console.error(errormessage);
                     });
                 };
 
-                // function generateRandomValue(max, min){
-                //     return Math.floor(Math.random() * (+max - +min))+ +min;
-                // }
-                //
+                function generateRandomValue(max, min){
+                    return Math.floor(Math.random() * (+max - +min))+ +min;
+                }
+
                 // scope.read = function() {
                 //     var format = scope.settings.single.format;
                 //     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
@@ -265,8 +278,8 @@ angular.module('resourceDirectives', [])
                     var format = scope.settings.single.format;
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
                     $http.get(uri, {params: {format: format}})
-                        .success(function (data, status, headers, config) {
-                            // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(100,2)}};
+                        .error(function (data, status, headers, config) {
+                            data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(20,60)}};
                             // manage request information
                             helper.handleResponse(data, scope.resource.read, function (formattedDate) {
                                 if (data.success && data.content) {
@@ -286,7 +299,7 @@ angular.module('resourceDirectives', [])
                                     scope.resource.tooltip = formattedDate;
                                 }
                             });
-                        }).error(function (data, status, headers, config) {
+                        }).success(function (data, status, headers, config) {
                         errormessage = "Unable to read resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
                         console.error(errormessage);
@@ -337,57 +350,7 @@ angular.module('resourceDirectives', [])
                     $('#writeModal').modal('show');
                 };
 
-                /*******************************Write Attribute STARTS HERE**********************/
-                scope.openWriteAttributeModal = function () {
-                    scope.modalInstance = $modal.open({
-                        templateUrl: 'partials/write-attribute-modal.html',
-                        scope: scope
-                    });
-                };
 
-                scope.closeWriteAttributeModal = function () {
-                    scope.modalInstance.close();
-                };
-
-                scope.writeAttribute = function(pmin,pmax,lt,gt,st) {
-
-                    var flag = false;
-
-                    if(pmin && pmax && lt && gt && st){
-
-                        if(pmin>pmax){
-                            alert("P-Min can't be greater than P-Max !!");
-                        }else{
-                            flag = true;
-                        }
-                    }else {
-                        alert("All Fiels Required !!");
-                    }
-
-                    if(flag){
-                        var path=  "";
-
-                        path = scope.resource.path;
-
-                        var uri = "api/clients/" + $routeParams.clientId + path +'/attributes?pmin='+pmin+'&pmax='+pmax+'&lt='+lt+'&gt='+gt+'&st='+st;
-                        $http.put(uri)
-                            .success(function(data, status, headers, config) {
-
-
-                                alert("sucess");
-                            }).error(function(data, status, headers, config) {
-                            errormessage = "Unable to read instance " + scope.instance.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
-                            dialog.open(errormessage);
-                            console.error(errormessage);
-                        });
-                    }
-
-                };
-
-
-
-
-                /*******************************Write Attribute ENDS HERE**********************/
 
                 scope.exec = function () {
                     $http.post("api/clients/" + $routeParams.clientId + scope.resource.path)
@@ -429,6 +392,11 @@ angular.module('resourceDirectives', [])
                     });
                     $('#writeModal').modal('show');
                 };
+
+
+                if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
+                    scope.read();
+                }
             }
         };
     });
