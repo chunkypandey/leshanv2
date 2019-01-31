@@ -180,7 +180,7 @@ angular.module('resourceDirectives', [])
                 function doSliderStuff(id, value, name) {
                     var index = 0;
 
-                    // var rangeValue = [0, 100];
+                    var rangeValue = [0, 100];
                     var handleValue = [12, 24, 36];
                     var doUpdate = false;
                     var updateRange = false;
