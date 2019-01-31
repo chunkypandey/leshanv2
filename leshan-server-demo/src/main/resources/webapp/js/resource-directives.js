@@ -69,9 +69,9 @@ angular.module('resourceDirectives', [])
                     var format = scope.settings.single.format;
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
                     $http.post(uri, null, {params: {format: format}})
-                        .error(function (data, status, headers, config) {
+                        .success(function (data, status, headers, config) {
 
-                            data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(10,100)}};
+                            // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(10,100)}};
                             //
                             helper.handleResponse(data, scope.resource.observe, function (formattedDate) {
                                 if (data.success) {
@@ -94,7 +94,7 @@ angular.module('resourceDirectives', [])
                                     scope.resource.tooltip = formattedDate;
                                 }
                             });
-                        }).success(function (data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
 
                         errormessage = "Unable to start observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
@@ -105,19 +105,19 @@ angular.module('resourceDirectives', [])
                 scope.stopObserve = function () {
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path + "/observe";
                     $http.delete(uri)
-                        .error(function (data, status, headers, config) {
+                        .success(function (data, status, headers, config) {
                             scope.resource.observed = false;
                             scope.resource.observe.stop = "success";
-                        }).success(function (data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
                         errormessage = "Unable to stop observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
                         console.error(errormessage);
                     });
                 };
 
-                function generateRandomValue(max, min){
-                    return Math.floor(Math.random() * (+max - +min))+ +min;
-                }
+                // function generateRandomValue(max, min){
+                //     return Math.floor(Math.random() * (+max - +min))+ +min;
+                // }
 
                 // scope.read = function() {
                 //     var format = scope.settings.single.format;
@@ -180,8 +180,8 @@ angular.module('resourceDirectives', [])
                 function doSliderStuff(id, value, name) {
                     var index = 0;
 
-                    var rangeValue = [0, 100];
-                    var handleValue = [10, 24, 85];
+                    // var rangeValue = [0, 100];
+                    var handleValue = [12, 24, 36];
                     var doUpdate = false;
                     var updateRange = false;
                     var updateHandleValue = false;
@@ -249,7 +249,7 @@ angular.module('resourceDirectives', [])
                         },
                         pips: {
                             mode: 'positions',
-                            values: [0, 10, 20, 30, 50, 75, 100],
+                            values: [0, 10, 20, 30, 50, 40, 50, 60, 70 ,80 ,90, 100],
                             density: 4,
                             stepped: true
                         }
@@ -278,8 +278,8 @@ angular.module('resourceDirectives', [])
                     var format = scope.settings.single.format;
                     var uri = "api/clients/" + $routeParams.clientId + scope.resource.path;
                     $http.get(uri, {params: {format: format}})
-                        .error(function (data, status, headers, config) {
-                            data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(20,60)}};
+                        .success(function (data, status, headers, config) {
+                            // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(20,60)}};
                             // manage request information
                             helper.handleResponse(data, scope.resource.read, function (formattedDate) {
                                 if (data.success && data.content) {
@@ -299,7 +299,7 @@ angular.module('resourceDirectives', [])
                                     scope.resource.tooltip = formattedDate;
                                 }
                             });
-                        }).success(function (data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
                         errormessage = "Unable to read resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
                         console.error(errormessage);

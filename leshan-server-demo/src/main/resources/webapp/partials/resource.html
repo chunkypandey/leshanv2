@@ -90,10 +90,9 @@
     <div>
         <div ng-if="resource.id==5701">
             <div ng-show="readable()" class="btn-group">
-                <button class="btn" ng-click="resource.read.status = null; read()"
+                <button type="button" ng-click="resource.read.status = null; read()"
                         tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
-                        tooltip-animation="false" tooltip-append-to-body="true"
-                >Units
+                        tooltip-animation="false" tooltip-append-to-body="true">Units
                 </button>
             </div>
             <div ng-class="{
@@ -144,28 +143,25 @@
 								'btn-warning': resource.read.status == 'INVALID',
 								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
                     </button>
-
-                    <div ng-show="readable()" class="btn-group">
-                        <button type="button" id="startSensorObserve" ng-click="resource.observe.status = null; startObserve()"
-                                tooltip-html-unsafe={{resource.observe.tooltip}} tooltip-placement="right"
-                                tooltip-animation="false" tooltip-append-to-body="true"
-                                ng-class="{
+                    <button type="button"
+                            ng-click="resource.observe.status = null; startObserve()"
+                            tooltip-html-unsafe={{resource.observe.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
 								'btn': true,
 								'btn-xs': true,
 								'btn-default': resource.observe.status == null,
 								'btn-danger': resource.observe.status == 'ERROR',
 								'btn-warning': resource.observe.status == 'INVALID',
 								'btn-success': resource.observe.status == 'SUCCESS' }" ng-hide="resource.observed"><span
-                                class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
-                        <button type="button" id="stopSensorObserve" ng-click="stopObserve()"
-                                ng-class="{
+                            class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+                    <button type="button" ng-click="stopObserve()"
+                            ng-class="{
 								'btn': true,
 								'btn-xs': true,
 								'btn-default': resource.observe.stop == null,
 								'btn-success': resource.observe.stop == 'success' }" ng-show="resource.observed"><span
-                                class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></button>
-                    </div>
-
+                            class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></button>
                 </div>
                 <div ng-class="{
 				'col-md-3': true,
@@ -175,72 +171,88 @@
                 </div>
             </div>
 
-            <div ng-if="resource.id==5601 || resource.id==5602">
-                <div ng-if="resource.id==5601">
-                    <div ng-show="readable()" class="btn-group">
-                        <button type="button" ng-click="resource.read.status = null; read()"
-                                tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
-                                tooltip-animation="false" tooltip-append-to-body="true"
-                                ng-class="{
+            <div ng-if="resource.id==5601">
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
 								'btn': true,
 								'btn-xs': true,
 								'btn-default': resource.read.status == null,
 								'btn-danger': resource.read.status == 'ERROR',
 								'btn-warning': resource.read.status == 'INVALID',
 								'btn-success': resource.read.status == 'SUCCESS' }">Read Min
-                        </button>
-                    </div>
-                    <div ng-class="{
-				'col-md-3': true,
-				'resource-value': true,
-				'resource-value-supposed': resource.valuesupposed}">
-                        <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
-                    </div>
-                </div>
-                <div ng-if="resource.id==5602">
-                    <div ng-show="readable()" class="btn-group">
-                        <button type="button" ng-click="resource.read.status = null; read()"
-                                tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
-                                tooltip-animation="false" tooltip-append-to-body="true"
-                                ng-class="{
-								'btn': true,
-								'btn-xs': true,
-								'btn-default': resource.read.status == null,
-								'btn-danger': resource.read.status == 'ERROR',
-								'btn-warning': resource.read.status == 'INVALID',
-								'btn-success': resource.read.status == 'SUCCESS' }">Read Max
-                        </button>
-                    </div>
-                    <div ng-class="{
-				'col-md-3': true,
-				'resource-value': true,
-				'resource-value-supposed': resource.valuesupposed}">
-                        <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
-                    </div>
-                </div>
-                    <div ng-show="readable()" class="btn-group">
-                        <button type="button" id="startMMObserve" ng-click="resource.observe.status = null; startObserve()"
-                                tooltip-html-unsafe={{resource.observe.tooltip}} tooltip-placement="right"
-                                tooltip-animation="false" tooltip-append-to-body="true"
-                                ng-class="{
+                    </button>
+                    <button type="button" ng-click="resource.observe.status = null; startObserve()"
+                            tooltip-html-unsafe={{resource.observe.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
 								'btn': true,
 								'btn-xs': true,
 								'btn-default': resource.observe.status == null,
 								'btn-danger': resource.observe.status == 'ERROR',
 								'btn-warning': resource.observe.status == 'INVALID',
 								'btn-success': resource.observe.status == 'SUCCESS' }" ng-hide="resource.observed"><span
-                                class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
-                        <button type="button" id="stopMMObserve" ng-click="stopObserve()"
-                                ng-class="{
+                            class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+                    <button type="button" ng-click="stopObserve()"
+                            ng-class="{
 								'btn': true,
 								'btn-xs': true,
 								'btn-default': resource.observe.stop == null,
 								'btn-success': resource.observe.stop == 'success' }" ng-show="resource.observed"><span
-                                class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></button>
-                    </div>
+                            class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5602">
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Read Max
+                    </button>
+                    <button type="button" ng-click="resource.observe.status = null; startObserve()"
+                            tooltip-html-unsafe={{resource.observe.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.observe.status == null,
+								'btn-danger': resource.observe.status == 'ERROR',
+								'btn-warning': resource.observe.status == 'INVALID',
+								'btn-success': resource.observe.status == 'SUCCESS' }" ng-hide="resource.observed"><span
+                            class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+                    <button type="button" ng-click="stopObserve()"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.observe.stop == null,
+								'btn-success': resource.observe.stop == 'success' }" ng-show="resource.observed"><span
+                            class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 

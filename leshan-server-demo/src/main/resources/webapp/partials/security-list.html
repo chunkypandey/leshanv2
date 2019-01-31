@@ -1,7 +1,7 @@
 <div class="well well-sm col-md-12" ng-if="certificate">
 	<h4>The Leshan Certificate  <small>(x509v3 der encoded)</small>
 		<button type="button" title ="Download server certificate(.der)" class="btn btn-default btn-xs" ng-click="saveFile('serverCertificate.der', certificate.bytesDer)">
-		<span class="glyphicon glyphicon-download-alt" aria-hidden="true">
+			<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 		</button>
 	</h4>
 	<p>
@@ -17,7 +17,7 @@
 <div class="well well-sm col-md-12" ng-if="pubkey">
 	<h4>The Leshan Public Key <small>(SubjectPublicKeyInfo der encoded)</small>
 		<button type="button" title ="Download server public key(.der)" class="btn btn-default btn-xs" ng-click="saveFile('serverPubKey.der',pubkey.bytesDer)">
-			<span class="glyphicon glyphicon-download-alt" aria-hidden="true">
+			<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 		</button>
 	</h4>
 	<p>
@@ -67,7 +67,7 @@
 			<td ng-if="security.x509">X.509</td>
 			<td ng-if="security.x509">Uses X.509 certificate</td>
 			<td><button type="button" class="btn btn-default btn-xs" ng-click="remove(endpoint)">
-					<span class="glyphicon glyphicon-remove"></button></td>
+				<span class="glyphicon glyphicon-remove"></span></button></td>
 		</tr>
 	<tbody>
 	</table>
@@ -175,8 +175,10 @@
 	.form-group .help-block {
 		display: none;
 	}
-	
+
 	.form-group.has-error .help-block {
 		display: block;
 	}
 </style>
+
+<toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
