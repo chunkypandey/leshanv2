@@ -222,7 +222,7 @@ angular.module('resourceDirectives', [])
                                 handleValue = slider.noUiSlider.get();
                                 slider.noUiSlider.destroy();
                             } else {
-                                handleValue = [10, 24, 85];
+                                handleValue = [12, 24, 36];
                             }
                             if (updateHandleValue) {
                                 handleValue[index] = value;

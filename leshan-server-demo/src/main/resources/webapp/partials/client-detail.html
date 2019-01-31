@@ -31,7 +31,8 @@
             <span class="pull-right">
 
 			<div class="row">
-                <div class="col-lg-6"><h5><span class="label label-default">{{client.registrationDate | date:'medium'}}</span></h5></div>
+                <div class="col-lg-6"><h5><span
+                        class="label label-default">{{client.registrationDate | date:'medium'}}</span></h5></div>
                 <div class="col-lg-6"><h5><span class="label label-default">{{client.lastUpdate | date:'medium'}}</span></h5></div>
 			</div>
 		</span>
@@ -41,18 +42,22 @@
 
         <div class="container">
             <ul class="nav nav-tabs" id="objectPanel">
-                <li role="presentation" id="sensorPanel" style="float: right"><a ng-click="selectObjectTypePanel('adminPanel','sensorPanel');">Sensor</a>
+                <li role="presentation" id="sensorPanel" style="float: right"><a
+                        ng-click="selectObjectTypePanel('adminPanel','sensorPanel');">Sensor</a>
                 </li>
                 <li role="presentation" id="adminPanel" style="float: right"><a
                         ng-click="selectObjectTypePanel('sensorPanel','adminPanel')">Admin</a></li>
             </ul>
         </div>
         <accordion close-others=false ng-show="showObjectType=='sensorPanel'">
-            <object ng-repeat='object in objects' ng-if="object.id==3303 || object.id==3304 || object.id==3315" object='object' settings='settings'></object>
+            <object ng-repeat='object in objects'
+                    ng-if="object.id==3303 || object.id==3304 || object.id==3311 || object.id==3315 || object.id==3330"
+                    object='object' settings='settings'></object>
         </accordion>
 
-        <accordion close-others=false  ng-show="showObjectType=='adminPanel'">
-            <object ng-repeat='object in objects'  ng-if="object.id==1 || object.id==2 || object.id==3"  object='object' settings='settings'></object>
+        <accordion close-others=false ng-show="showObjectType=='adminPanel'">
+            <object ng-repeat='object in objects' ng-if="object.id==1 || object.id==2 || object.id==3" object='object'
+                    settings='settings'></object>
         </accordion>
 
         <!--/**********Admin + Sensor*************-->
