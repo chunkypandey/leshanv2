@@ -156,7 +156,11 @@ angular.module('resourceDirectives', [])
                 //     $scope.minSliderValue = $scope.sliderObj1[0];
                 //     $scope.maxSliderValue= $scope.sliderObj1[1];
                 // };
-                //
+
+
+
+
+                /********************Slider *****************************/
                 scope.resetSlider = function (id) {
                     // sliderObj1.noUiSlider.set(0,24,100);
 
@@ -238,7 +242,7 @@ angular.module('resourceDirectives', [])
                     noUiSlider.create(slider, {
                         start: handleData,
                         behaviour: 'tap',
-                        // connect: [false,true,true,false],
+                        connect: [false,true,true,false],
                         tooltips: true,
                         // format: wNumb({
                         //     decimals: 0
@@ -254,7 +258,20 @@ angular.module('resourceDirectives', [])
                             stepped: true
                         }
                     });
+
+                    var connect = slider.querySelectorAll('.noUi-connect'); /*****Slider Colour*******/
+                    var classes = ['c-1-color', 'c-2-color'];
+
+                    for (var i = 0; i < connect.length; i++) {
+                        connect[i].classList.add(classes[i]);
+                    }
+
+                    // slider.setAttribute('disabled', true);       /*****Slider Freeze*******/
+
                 }
+
+                /********************Slider************************/
+
 
                 // scope.isItemExist = function(value){
                 //
