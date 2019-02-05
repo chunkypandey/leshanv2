@@ -72,7 +72,6 @@ angular.module('resourceDirectives', [])
                         .success(function (data, status, headers, config) {
 
                             // data = {"status":"CONTENT","valid":true,"success":true,"failure":false,"content":{"id":scope.resource.id,"value":generateRandomValue(10,100)}};
-                            //
                             helper.handleResponse(data, scope.resource.observe, function (formattedDate) {
                                 if (data.success) {
                                     scope.resource.observed = true;
@@ -94,7 +93,7 @@ angular.module('resourceDirectives', [])
                                     scope.resource.tooltip = formattedDate;
                                 }
                             });
-                        }).success(function (data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
 
                         errormessage = "Unable to start observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
