@@ -94,7 +94,7 @@ angular.module('resourceDirectives', [])
                                     scope.resource.tooltip = formattedDate;
                                 }
                             });
-                        }).error(function (data, status, headers, config) {
+                        }).success(function (data, status, headers, config) {
 
                         errormessage = "Unable to start observation on resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
@@ -171,8 +171,8 @@ angular.module('resourceDirectives', [])
                         if (slider.noUiSlider) {
                             slider.noUiSlider.destroy();
                         } else {
-                            var handleValue = [0, 0, 0];
-                            var rangeValue = [0, 0];
+                            var handleValue = [12, 24, 36];
+                            var rangeValue = [0, 100];
                         }
 
                         createSlider(handleValue, slider, rangeValue);
@@ -411,6 +411,7 @@ angular.module('resourceDirectives', [])
                 };
 
 
+                //On Load
                 if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
                     scope.read();
                 }
