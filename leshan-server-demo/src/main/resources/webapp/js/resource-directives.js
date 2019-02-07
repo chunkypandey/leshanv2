@@ -410,10 +410,25 @@ angular.module('resourceDirectives', [])
                 };
 
 
+
+
                 //On Load
-                if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
-                    scope.read();
+                var myapp = angular.module("myapp", []);
+
+                myapp.controller("MyController", function($scope, $interval){
+
+                    $interval(callAtInterval, 500);
+
+                });
+
+                function callAtInterval() {
+                    if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
+                        scope.read();
+                    }
                 }
+
+
+
             }
         };
     });
