@@ -412,16 +412,43 @@ angular.module('resourceDirectives', [])
 
 
 
+                //On load
+
+
+                var timeIntervals = {
+                    "/3303/0/5603":55,
+                    "/3303/0/5604":105,
+                    "/3303/0/5701":155,
+
+                    "/3304/0/5603":205,
+                    "/3304/0/5604":255,
+                    "/3304/0/5701":305,
+
+                    "/3315/0/5603":355,
+                    "/3315/0/5604":405,
+                    "/3315/0/5701":455,
+
+                    "/3330/0/5603":505,
+                    "/3330/0/5604":555,
+                    "/3330/0/5701":605,
+
+                    "/3331/0/5603":655,
+                    "/3331/0/5604":705,
+                    "/3331/0/5701":755
+
+                };
+
+
+
+
 
                 function callAtInterval() {
                     if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
                         console.log(new Date());
                         scope.read();
                     }
-
-
                 }
-                setTimeout(function(){callAtInterval();}, 500);
+                setTimeout(function(){callAtInterval();}, timeIntervals[scope.resource.path]);
 
 
 
