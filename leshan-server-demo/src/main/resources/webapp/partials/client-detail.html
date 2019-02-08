@@ -51,14 +51,14 @@
         </div>
         <accordion close-others=false ng-show="showObjectType=='sensorPanel'">
             <object ng-repeat='object in objects'
-                    ng-if="object.id==3303 || object.id==3304"
+                    ng-if="object.id==3303 || object.id==3304 || object.id==3311 || object.id==3315 || object.id==3330"
                     object='object' settings='settings'></object>
         </accordion>
 
-        <!--<accordion close-others=false ng-show="showObjectType=='adminPanel'">-->
-            <!--<object ng-repeat='object in objects' ng-if="object.id==1 || object.id==2 || object.id==3" object='object'-->
-                    <!--settings='settings'></object>-->
-        <!--</accordion>-->
+        <accordion close-others=false ng-show="showObjectType=='adminPanel'">
+            <object ng-repeat='object in objects' ng-if="object.id==1 || object.id==2 || object.id==3" object='object'
+                    settings='settings'></object>
+        </accordion>
 
         <!--/**********Admin + Sensor*************-->
 
