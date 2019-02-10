@@ -16,7 +16,7 @@
 
 angular.module('resourceDirectives', [])
 
-    .directive('resource', function ($compile, $routeParams, $http, dialog, $filter, lwResources, helper,$modal) {
+    .directive('resource', function ($compile, $routeParams, $http, dialog, $filter, lwResources, helper,$rootScope) {
         return {
             restrict: "E",
             replace: true,
@@ -285,6 +285,16 @@ angular.module('resourceDirectives', [])
                                         // single value
                                         scope.resource.value = data.content.value;
                                         doSliderStuff(scope.parent.path, scope.resource.value, scope.resource.def.name);
+                                        if(scope.resource.def.id==5603)
+                                        {
+                                            var tempName = scope.resource.path;
+                                            $rootScope[tempName] = scope.resource.value;
+                                        }
+                                        if(scope.resource.def.id==5604)
+                                        {
+                                            var tempName = scope.resource.path;
+                                            $rootScope[tempName] = scope.resource.value;
+                                        }
                                     } else if ("values" in data.content) {
                                         // multiple instances
                                         var tab = new Array();

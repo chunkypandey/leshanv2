@@ -192,7 +192,7 @@ lwClientControllers.controller('ClientDetailCtrl', [
     '$http',
     'lwResources',
     '$filter',
-    function ($scope, $location, $routeParams, $http, lwResources, $filter) {
+    function ($scope, $location, $routeParams, $http, lwResources, $filter,$rootScope) {
         // update navbar
         angular.element("#navbar").children().removeClass('active');
         angular.element("#client-navlink").addClass('active');
@@ -322,10 +322,15 @@ lwClientControllers.controller('ClientDetailCtrl', [
 
                 };
 
-                function doSliderStuff(id, value, name) {
+                function doSliderStuff(resourcePath, value, name) {
+
+                    var splittedTempResourcePath = resourcePath.split("/");
+                    var id  = "/"+splittedTempResourcePath[1]+"/"+splittedTempResourcePath[2];
+                    var minRangeValue = id+"5603";
+                    var maxRangeValue = id+"5604";
                     var index = 0;
 
-                    var rangeValue = [0, 100];
+                    var rangeValue = [$rootScope[minRangeValue], $rootScope[maxRangeValue]];
                     var handleValue = [12, 24, 36];
                     var doUpdate = false;
                     var updateRange = false;
@@ -421,10 +426,7 @@ lwClientControllers.controller('ClientDetailCtrl', [
                             if ("value" in content.val) {
                                 // single value
                                 resource.value = content.val.value;
-                                var tempResourcePath = resource.path;
-                                var splittedTempResourcePath = tempResourcePath.split("/");
-                                var tempParentPath  = "/"+splittedTempResourcePath[1]+"/"+splittedTempResourcePath[2];
-                                doSliderStuff(tempParentPath, resource.value, resource.def.name);
+                                doSliderStuff(resource.path, resource.value, resource.def.name);
                             } else if ("values" in content.val) {
                                 // multiple instances
                                 var tab = new Array();
