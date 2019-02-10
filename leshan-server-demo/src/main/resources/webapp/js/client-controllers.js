@@ -302,7 +302,7 @@ lwClientControllers.controller('ClientDetailCtrl', [
 
 
                 /********************Slider *****************************/
-                scope.resetSlider = function (id) {
+                $scope.resetSlider = function (id) {
                     // sliderObj1.noUiSlider.set(0,24,100);
 
                     if (id) {
