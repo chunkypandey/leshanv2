@@ -3,18 +3,21 @@
     <!--<accordion-group is-open="status.open" ng-show="isItemExist(object.id)">-->
     <!--<accordion-group is-open="status.open">-->
 
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <div class="row">
-                    <div class="col-md-4 object-name">{{object.name}}</div>
-                    <!--<div class="col-md-8 text-muted small">-->
-                    <!--<i class="pull-right glyphicon"-->
-                    <!--ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
-                    <!--</div>-->
-                </div>'
-
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!--<div class="card-title">-->
+            <div class="row">
+                <div class="col-md-4 object-name">
+                    <p class="panel-title">{{object.name}}</p></div>
+                <!--<div class="col-md-8 text-muted small">-->
+                <!--<i class="pull-right glyphicon"-->
+                <!--ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
+                <!--</div>-->
             </div>
+
+            <!--</div>-->
+        </div>
+        <div class="panel-body">
 
 
             <div class="row" ng-show="object.instancetype == 'multiple'">

@@ -1,112 +1,119 @@
-<span style="display: inline">
+<div>
 
     <!--<accordion-group is-open="status.open">-->
-
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title">
-                  <!--<accordion-heading>-->
-                    <div class="row">
-                        <div class="col-md-4 object-name">
-                            <div class="instance-name">{{instance.name}}</div>
-                        </div>
-                        <div class="col-md-8 text-muted small">
-                            <i class="pull-right glyphicon"
-                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                        </div>
-                    </div>
-                    <!--</accordion-heading>-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-4 object-name">
+                    <div class="instance-name"><p class="panel-title">{{instance.name}}</p></div>
                 </div>
-
-                <!--<div class="row">-->
-
-                <!--<div class="col-md-1 text-muted small">{{instance.path}}</div>-->
-                <!--<div class="col-md-1 text-muted small"><span ng-if="instance.observed"-->
-                <!--class="glyphicon glyphicon-eye-open"></span></div>-->
-                <!--<div class="col-md-6">-->
-                <!--<div class="btn-toolbar" role="toolbar">-->
-                <!--<div class="btn-group">-->
-                <!--<button type="button" ng-click="instance.observe.status = null; startObserve()"-->
-                <!--tooltip-html-unsafe={{instance.observe.tooltip}} tooltip-placement="right"-->
-                <!--tooltip-animation="false" tooltip-append-to-body="true"-->
-                <!--ng-class="{-->
-                <!--'btn': true,-->
-                <!--'btn-xs': true,-->
-                <!--'btn-default': instance.observe.status == null,-->
-                <!--'btn-danger': instance.observe.status == 'ERROR',-->
-                <!--'btn-warning': instance.observe.status == 'INVALID',-->
-                <!--'btn-success': instance.observe.status == 'SUCCESS'}">Observe <span-->
-                <!--class="glyphicon glyphicon-play"></span></button>-->
-                <!--<button type="button" ng-click="stopObserve()"-->
-                <!--ng-class="{-->
-                <!--'btn': true,-->
-                <!--'btn-xs': true,-->
-                <!--'btn-default': instance.observe.stop == null,-->
-                <!--'btn-success': instance.observe.stop == 'success' }"><span-->
-                <!--class="glyphicon glyphicon-stop"></span></button>-->
+                <!--<div class="col-md-8 text-muted small">-->
+                    <!--<i class="pull-right glyphicon"-->
+                       <!--ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
                 <!--</div>-->
-                <!--<div class="btn-group">-->
-                <!--<button type="button" ng-click="instance.read.status = null; read()"-->
-                <!--tooltip-html-unsafe={{instance.read.tooltip}} tooltip-placement="right"-->
-                <!--tooltip-animation="false" tooltip-append-to-body="true"-->
-                <!--ng-class="{-->
-                <!--'btn': true,-->
-                <!--'btn-xs': true,-->
-                <!--'btn-default': instance.read.status == null,-->
-                <!--'btn-danger': instance.read.status == 'ERROR',-->
-                <!--'btn-warning': instance.read.status == 'INVALID',-->
-                <!--'btn-success': instance.read.status == 'SUCCESS'}">Read-->
-                <!--</button>-->
-
-                <!--</div>-->
-                <!--<div class="btn-group">-->
-                <!--<button type="button" ng-click="instance.write.status = null; write()"-->
-                <!--tooltip-html-unsafe={{instance.write.tooltip}} tooltip-placement="right"-->
-                <!--tooltip-animation="false" tooltip-append-to-body="true"-->
-                <!--ng-class="{-->
-                <!--'btn': true,-->
-                <!--'btn-xs': true,-->
-                <!--'btn-default': instance.write.status == null,-->
-                <!--'btn-danger': instance.write.status == 'ERROR',-->
-                <!--'btn-warning': instance.write.status == 'INVALID',-->
-                <!--'btn-success': instance.write.status == 'SUCCESS'}">Write-->
-                <!--</button>-->
-                <!--</div>-->
-                <!--<div class="btn-group clearfix">-->
-                <!--<button type="button" ng-click="instance.del.status = null; del()"-->
-                <!--tooltip-html-unsafe={{instance.del.tooltip}} tooltip-placement="right"-->
-                <!--tooltip-animation="false" tooltip-append-to-body="true"-->
-                <!--ng-class="{-->
-                <!--'btn': true,-->
-                <!--'btn-xs': true,-->
-                <!--'btn-default': instance.del.status == null,-->
-                <!--'btn-danger': instance.del.status == 'ERROR',-->
-                <!--'btn-warning': instance.del.status == 'INVALID',-->
-                <!--'btn-success': instance.del.status == 'SUCCESS'}">Delete-->
-                <!--</button>-->
-
-                <!--<button type="button" class="btn btn-success float-right" ng-click="openWriteAttributeModal();">-->
-                <!--Write Attribute-->
-                <!--</button>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-
-
-                <button type="button" class="btn btn-default float-right"
-                 ng-click="openWriteAttributeModal();"
-                 tooltip-placement="right"
-                 tooltip-animation="false" tooltip-append-to-body="true"><span
-                 class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                </button>
-                <resource style="display: inline-block" resource='resource' ng-repeat="resource in instance.resources"
-                   parent='instance'
-                   settings='settings'></resource>
-                <div id={{instance.path}} style="margin: 30px 10px;"></div>
             </div>
         </div>
+        <div class="panel-body">
+            <button type="button" class="btn btn-default float-right"
+                    ng-click="openWriteAttributeModal();"
+                    tooltip-placement="right"
+                    tooltip-animation="false" tooltip-append-to-body="true"><span
+                    class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            </button>
+            <resource style="display: inline-block" resource='resource' ng-repeat="resource in instance.resources"
+                      parent='instance'
+                      settings='settings'></resource>
+            <div id={{instance.path}} style="margin: 30px 10px;"></div>
+        </div>
+    </div>
+        <!--<div class="card">-->
+            <!--<div class="card-body">-->
+                <!--<div class="card-title">-->
+                  <!--&lt;!&ndash;<accordion-heading>&ndash;&gt;-->
+                   <!---->
+                    <!--&lt;!&ndash;</accordion-heading>&ndash;&gt;-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<div class="col-md-1 text-muted small">{{instance.path}}</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-1 text-muted small"><span ng-if="instance.observed"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="glyphicon glyphicon-eye-open"></span></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="btn-toolbar" role="toolbar">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="btn-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" ng-click="instance.observe.status = null; startObserve()"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-html-unsafe={{instance.observe.tooltip}} tooltip-placement="right"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-animation="false" tooltip-append-to-body="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-class="{&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-xs': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-default': instance.observe.status == null,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-danger': instance.observe.status == 'ERROR',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-warning': instance.observe.status == 'INVALID',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-success': instance.observe.status == 'SUCCESS'}">Observe <span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="glyphicon glyphicon-play"></span></button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" ng-click="stopObserve()"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-class="{&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-xs': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-default': instance.observe.stop == null,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-success': instance.observe.stop == 'success' }"><span&ndash;&gt;-->
+                <!--&lt;!&ndash;class="glyphicon glyphicon-stop"></span></button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="btn-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" ng-click="instance.read.status = null; read()"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-html-unsafe={{instance.read.tooltip}} tooltip-placement="right"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-animation="false" tooltip-append-to-body="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-class="{&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-xs': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-default': instance.read.status == null,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-danger': instance.read.status == 'ERROR',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-warning': instance.read.status == 'INVALID',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-success': instance.read.status == 'SUCCESS'}">Read&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="btn-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" ng-click="instance.write.status = null; write()"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-html-unsafe={{instance.write.tooltip}} tooltip-placement="right"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-animation="false" tooltip-append-to-body="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-class="{&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-xs': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-default': instance.write.status == null,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-danger': instance.write.status == 'ERROR',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-warning': instance.write.status == 'INVALID',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-success': instance.write.status == 'SUCCESS'}">Write&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="btn-group clearfix">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" ng-click="instance.del.status = null; del()"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-html-unsafe={{instance.del.tooltip}} tooltip-placement="right"&ndash;&gt;-->
+                <!--&lt;!&ndash;tooltip-animation="false" tooltip-append-to-body="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-class="{&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-xs': true,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-default': instance.del.status == null,&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-danger': instance.del.status == 'ERROR',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-warning': instance.del.status == 'INVALID',&ndash;&gt;-->
+                <!--&lt;!&ndash;'btn-success': instance.del.status == 'SUCCESS'}">Delete&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<button type="button" class="btn btn-success float-right" ng-click="openWriteAttributeModal();">&ndash;&gt;-->
+                <!--&lt;!&ndash;Write Attribute&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+              <!---->
+            <!--</div>-->
+        <!--</div>-->
 
         <!--</accordion-group>-->
 
-</span>
+</div>
 
