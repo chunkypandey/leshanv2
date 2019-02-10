@@ -160,6 +160,7 @@ angular.module('resourceDirectives', [])
 
 
                 /********************Slider *****************************/
+
                 scope.resetSlider = function (id) {
                     // sliderObj1.noUiSlider.set(0,24,100);
 
@@ -178,7 +179,6 @@ angular.module('resourceDirectives', [])
                     }
 
                 };
-
 
                 function doSliderStuff(id, value, name) {
                     var index = 0;
@@ -268,7 +268,6 @@ angular.module('resourceDirectives', [])
                     // slider.setAttribute('disabled', true);       /*****Slider Freeze*******/
 
                 }
-
 
                 /******************HARD CODED DATA**********************/
 

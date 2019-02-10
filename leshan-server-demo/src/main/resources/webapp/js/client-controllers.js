@@ -302,6 +302,7 @@ lwClientControllers.controller('ClientDetailCtrl', [
 
 
                 /********************Slider *****************************/
+
                 $scope.resetSlider = function (id) {
                     // sliderObj1.noUiSlider.set(0,24,100);
 
@@ -320,7 +321,6 @@ lwClientControllers.controller('ClientDetailCtrl', [
                     }
 
                 };
-
 
                 function doSliderStuff(id, value, name) {
                     var index = 0;
@@ -388,10 +388,10 @@ lwClientControllers.controller('ClientDetailCtrl', [
                         // format: wNumb({
                         //     decimals: 0
                         // }),
-                        // range: {
-                        //     'min': rangeValue[0],
-                        //     'max': rangeValue[1]
-                        // },
+                        range: {
+                            'min': rangeValue[0],
+                            'max': rangeValue[1]
+                        },
                         pips: {
                             mode: 'positions',
                             values: [0, 10, 20, 30, 50, 40, 50, 60, 70 ,80 ,90, 100],
@@ -410,7 +410,6 @@ lwClientControllers.controller('ClientDetailCtrl', [
                     // slider.setAttribute('disabled', true);       /*****Slider Freeze*******/
 
                 }
-
 
                 /******************HARD CODED DATA**********************/
 
