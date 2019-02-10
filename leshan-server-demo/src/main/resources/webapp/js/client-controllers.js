@@ -327,8 +327,8 @@ lwClientControllers.controller('ClientDetailCtrl', [
 
                     var splittedTempResourcePath = resourcePath.split("/");
                     var id  = "/"+splittedTempResourcePath[1]+"/"+splittedTempResourcePath[2];
-                    var minRangeValue = id+"5603";
-                    var maxRangeValue = id+"5604";
+                    var minRangeValue = id+"/5603";
+                    var maxRangeValue = id+"/5604";
                     var index = 0;
 
                     var rangeValue = [$rootScope[minRangeValue], $rootScope[maxRangeValue]];
