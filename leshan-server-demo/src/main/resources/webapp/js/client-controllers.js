@@ -422,7 +422,10 @@ lwClientControllers.controller('ClientDetailCtrl', [
                             if ("value" in content.val) {
                                 // single value
                                 resource.value = content.val.value;
-                                doSliderStuff(resource.parent.path, resource.value, resource.def.name);
+                                var tempResourcePath = resource.path;
+                                var splittedTempResourcePath = tempResourcePath.split("/");
+                                var tempParentPath  = "/"+splittedTempResourcePath[1]+"/"+splittedTempResourcePath[2];
+                                doSliderStuff(tempParentPath, resource.value, resource.def.name);
                             } else if ("values" in content.val) {
                                 // multiple instances
                                 var tab = new Array();
