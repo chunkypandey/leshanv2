@@ -2,17 +2,17 @@
 
     <!--<accordion-group is-open="status.open">-->
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-md-4 object-name">
-                    <div class="instance-name"><p class="panel-title">{{instance.name}}</p></div>
-                </div>
-                <!--<div class="col-md-8 text-muted small">-->
-                    <!--<i class="pull-right glyphicon"-->
-                       <!--ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
+        <!--<div class="panel-heading">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-4 object-name">-->
+                    <!--<div class="instance-name"><p class="panel-title">{{instance.name}}</p></div>-->
                 <!--</div>-->
-            </div>
-        </div>
+                <!--&lt;!&ndash;<div class="col-md-8 text-muted small">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="pull-right glyphicon"&ndash;&gt;-->
+                       <!--&lt;!&ndash;ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="panel-body">
             <button type="button" class="btn btn-default float-right"
                     ng-click="openWriteAttributeModal();"
@@ -23,6 +23,8 @@
             <resource style="display: inline-block" resource='resource' ng-repeat="resource in instance.resources"
                       parent='instance'
                       settings='settings'></resource>
+            <br>
+            <br>
             <br>
             <div id={{instance.path}} style="margin: 30px 10px;"></div>
         </div>
