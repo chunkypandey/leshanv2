@@ -300,6 +300,120 @@ lwClientControllers.controller('ClientDetailCtrl', [
                 };
                 $scope.eventsource.addEventListener('DEREGISTRATION', deregisterCallback, false);
 
+
+                /********************Slider *****************************/
+                scope.resetSlider = function (id) {
+                    // sliderObj1.noUiSlider.set(0,24,100);
+
+                    if (id) {
+                        var slider = document.getElementById(id);
+                    }
+                    if (slider) {
+                        if (slider.noUiSlider) {
+                            slider.noUiSlider.destroy();
+                        } else {
+                            var handleValue = [12, 24, 36];
+                            var rangeValue = [0, 100];
+                        }
+
+                        createSlider(handleValue, slider, rangeValue);
+                    }
+
+                };
+
+
+                function doSliderStuff(id, value, name) {
+                    var index = 0;
+
+                    var rangeValue = [0, 100];
+                    var handleValue = [12, 24, 36];
+                    var doUpdate = false;
+                    var updateRange = false;
+                    var updateHandleValue = false;
+                    switch (name) {
+                        case "Min Range Value":
+                            rangeValue[0] = value;
+                            doUpdate = true;
+                            updateRange = true;
+                            break;
+                        case "Max Range Value":
+                            rangeValue[1] = value;
+                            updateRange = true;
+                            doUpdate = true;
+                            break;
+                        case "Min Measured Value":
+                            index = 0;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                        case "Max Measured Value":
+                            index = 2;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                        case "Sensor Value":
+                            index = 1;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                    }
+
+                    if (doUpdate) {
+                        if (id) {
+                            var slider = document.getElementById(id);
+                        }
+                        if (slider) {
+                            if (slider.noUiSlider) {
+                                handleValue = slider.noUiSlider.get();
+                                slider.noUiSlider.destroy();
+                            } else {
+                                handleValue = [12, 24, 36];
+                            }
+                            if (updateHandleValue) {
+                                handleValue[index] = value;
+                            }
+
+                            createSlider(handleValue, slider, rangeValue);
+                        }
+                    }
+                }
+
+                function createSlider(handleData, slider, rangeValue) {
+                    // rangeValue = [0,100];
+                    noUiSlider.create(slider, {
+                        start: handleData,
+                        behaviour: 'tap',
+                        connect: [false,true,true,false],
+                        tooltips: true,
+                        // format: wNumb({
+                        //     decimals: 0
+                        // }),
+                        range: {
+                            'min': rangeValue[0],
+                            'max': rangeValue[1]
+                        },
+                        pips: {
+                            mode: 'positions',
+                            values: [0, 10, 20, 30, 50, 40, 50, 60, 70 ,80 ,90, 100],
+                            density: 4,
+                            stepped: true
+                        }
+                    });
+
+                    var connect = slider.querySelectorAll('.noUi-connect'); /*****Slider Colour*******/
+                    var classes = ['c-1-color', 'c-2-color'];
+
+                    for (var i = 0; i < connect.length; i++) {
+                        connect[i].classList.add(classes[i]);
+                    }
+
+                    // slider.setAttribute('disabled', true);       /*****Slider Freeze*******/
+
+                }
+
+
+                /******************HARD CODED DATA**********************/
+
                 var notificationCallback = function (msg) {
                     $scope.$apply(function () {
                         var content = JSON.parse(msg.data);
@@ -308,6 +422,7 @@ lwClientControllers.controller('ClientDetailCtrl', [
                             if ("value" in content.val) {
                                 // single value
                                 resource.value = content.val.value;
+                                doSliderStuff(resource.parent.path, resource.value, resource.def.name);
                             } else if ("values" in content.val) {
                                 // multiple instances
                                 var tab = new Array();
