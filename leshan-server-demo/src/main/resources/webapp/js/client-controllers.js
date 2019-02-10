@@ -192,6 +192,7 @@ lwClientControllers.controller('ClientDetailCtrl', [
     '$http',
     'lwResources',
     '$filter',
+    '$rootScope',
     function ($scope, $location, $routeParams, $http, lwResources, $filter,$rootScope) {
         // update navbar
         angular.element("#navbar").children().removeClass('active');
