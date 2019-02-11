@@ -114,7 +114,7 @@ angular.module('instanceDirectives', [])
 
                     if(pmin>pmax){
                         alert("P-Min can't be greater than P-Max !!");
-                    }if((lt+(2*st))>gt){
+                    }if((lt+(2*st))>=gt){
                         alert("Lt Gt out of Contract !!");
                     }else{
                         flag = true;
