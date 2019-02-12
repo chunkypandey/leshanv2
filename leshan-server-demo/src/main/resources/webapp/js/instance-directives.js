@@ -143,7 +143,7 @@ angular.module('instanceDirectives', [])
                         $http.put(uri)
                             .success(function (data, status, headers, config) {
 
-                                alert("sucess");
+                                // alert("sucess");
                                 scope.closeWriteAttributeModal();
                             }).error(function (data, status, headers, config) {
                             errormessage = "Unable to read instance " + scope.instance.path + " for " + $routeParams.clientId + " : " + status + " " + data;
