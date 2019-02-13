@@ -16,7 +16,7 @@
 
 angular.module('instanceDirectives', [])
 
-    .directive('instance', function ($compile, $routeParams, $http, dialog, $filter, lwResources, $modal, helper) {
+    .directive('instance', function ($compile, $routeParams, $http, dialog, $filter, lwResources, $modal, helper, $rootScope) {
         return {
             restrict: "E",
             replace: true,
@@ -33,6 +33,15 @@ angular.module('instanceDirectives', [])
                 scope.lt = '';
                 scope.gt = '';
                 scope.st = '';
+
+                var defaultWriteValues = {
+                    pmin: '',
+                    pmax: '',
+                    lt: '',
+                    gt: '',
+                    st: ''
+                };
+
                 scope.instance.path = scope.parent.path + "/" + scope.instance.id;
 
                 scope.instance.read = {tooltip: "Read <br/>" + scope.instance.path};
@@ -54,6 +63,15 @@ angular.module('instanceDirectives', [])
                                         if ("value" in tlvresource) {
                                             // single value
                                             resource.value = tlvresource.value;
+                                            doSliderStuff(scope.instance.path, scope.resource.value, scope.resource.def.name);
+                                            if (scope.resource.def.id == 5603) {
+                                                var tempName = scope.resource.path;
+                                                $rootScope[tempName] = scope.resource.value;
+                                            }
+                                            if (scope.resource.def.id == 5604) {
+                                                var tempName = scope.resource.path;
+                                                $rootScope[tempName] = scope.resource.value;
+                                            }
                                         } else if ("values" in tlvresource) {
                                             // multiple instances
                                             var tab = new Array();
@@ -118,20 +136,31 @@ angular.module('instanceDirectives', [])
                     scope.gt = gt;
                     scope.st = st;
                     var flag = false;
+                    var errorFlag = false;
 
                     if (pmin && pmax && lt && gt && st) {
 
                         if (pmin > pmax) {
                             alert("P-Min can't be greater than P-Max !!");
+                            errorFlag = true;
                         } else {
                             if ((lt + (2 * st)) >= gt) {
                                 alert("Lt Gt out of Contract !!");
+                                errorFlag = true;
                             } else {
                                 flag = true;
                             }
                         }
                     } else {
                         alert("All Fiels Required !!");
+                        errorFlag = true;
+                    }
+                    if(errorFlag){
+                        scope.pmin = defaultWriteValues.pmin;
+                        scope.pmax = defaultWriteValues.pmax;
+                        scope.lt =   defaultWriteValues.lt;
+                        scope.gt =   defaultWriteValues.gt;
+                        scope.st =   defaultWriteValues.st;
                     }
 
                     if (flag) {
@@ -144,6 +173,11 @@ angular.module('instanceDirectives', [])
                             .success(function (data, status, headers, config) {
 
                                 // alert("sucess");
+                                defaultWriteValues.pmin = pmin;
+                                defaultWriteValues.pmax = pmax;
+                                defaultWriteValues.lt = lt;
+                                defaultWriteValues.gt = gt;
+                                defaultWriteValues.st = st;
                                 scope.closeWriteAttributeModal();
                             }).error(function (data, status, headers, config) {
                             errormessage = "Unable to read instance " + scope.instance.path + " for " + $routeParams.clientId + " : " + status + " " + data;
@@ -272,6 +306,123 @@ angular.module('instanceDirectives', [])
                         console.error(errormessage);
                     });
                 };
+
+                 /********************Slider start*****************************/
+
+                scope.resetSlider = function (id) {
+                    // sliderObj1.noUiSlider.set(0,24,100);
+
+                    if (id) {
+                        var slider = document.getElementById(id);
+                    }
+                    if (slider) {
+                        if (slider.noUiSlider) {
+                            slider.noUiSlider.destroy();
+                        } else {
+                            var handleValue = [12, 24, 36];
+                            var rangeValue = [0, 100];
+                        }
+
+                        createSlider(handleValue, slider, rangeValue);
+                    }
+
+                };
+
+                function doSliderStuff(id, value, name) {
+                    var index = 0;
+
+                    var rangeValue = [0, 100];
+                    var handleValue = [12, 24, 36];
+                    var doUpdate = false;
+                    var updateRange = false;
+                    var updateHandleValue = false;
+                    switch (name) {
+                        case "Min Range Value":
+                            rangeValue[0] = value;
+                            doUpdate = true;
+                            updateRange = true;
+                            break;
+                        case "Max Range Value":
+                            rangeValue[1] = value;
+                            updateRange = true;
+                            doUpdate = true;
+                            break;
+                        case "Min Measured Value":
+                            index = 0;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                        case "Max Measured Value":
+                            index = 2;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                        case "Sensor Value":
+                            index = 1;
+                            updateHandleValue = true;
+                            doUpdate = true;
+                            break;
+                    }
+
+                    if (doUpdate) {
+                        if (id) {
+                            var slider = document.getElementById(id);
+                        }
+                        if (slider) {
+                            if (slider.noUiSlider) {
+                                handleValue = slider.noUiSlider.get();
+                                slider.noUiSlider.destroy();
+                            } else {
+                                handleValue = [12, 24, 36];
+                            }
+                            if (updateHandleValue) {
+                                handleValue[index] = value;
+                            }
+
+                            createSlider(handleValue, slider, rangeValue);
+                        }
+                    }
+                }
+
+                function createSlider(handleData, slider, rangeValue) {
+                    // rangeValue = [0,100];
+                    noUiSlider.create(slider, {
+                        start: handleData,
+                        behaviour: 'tap',
+                        connect: [false, true, true, false],
+                        tooltips: true,
+                        // format: wNumb({
+                        //     decimals: 0
+                        // }),
+                        range: {
+                            'min': rangeValue[0],
+                            'max': rangeValue[1]
+                        },
+                        pips: {
+                            mode: 'positions',
+                            values: [0, 10, 20, 30, 50, 40, 50, 60, 70, 80, 90, 100],
+                            density: 4,
+                            stepped: true
+                        }
+                    });
+
+                    var connect = slider.querySelectorAll('.noUi-connect');
+                    /*****Slider Colour*******/
+                    var classes = ['c-1-color', 'c-2-color'];
+
+                    for (var i = 0; i < connect.length; i++) {
+                        connect[i].classList.add(classes[i]);
+                    }
+
+                    // slider.setAttribute('disabled', true);       /*****Slider Freeze*******/
+
+                }
+
+                /********************Slider ends here*****************************/
+
+                /********************Onload  starts here*****************************/
+                scope.read();
+                /********************Onload ends her*****************************/
             }
         };
     });

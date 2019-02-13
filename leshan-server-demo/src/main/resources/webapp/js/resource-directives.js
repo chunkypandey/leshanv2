@@ -295,6 +295,10 @@ angular.module('resourceDirectives', [])
                                             var tempName = scope.resource.path;
                                             $rootScope[tempName] = scope.resource.value;
                                         }
+                                        // if(scope.resource.def.id==5601){
+                                        //     scope.resource.path = 5602;
+                                        //     scope.read();
+                                        // }
                                     } else if ("values" in data.content) {
                                         // multiple instances
                                         var tab = new Array();
@@ -405,35 +409,35 @@ angular.module('resourceDirectives', [])
 
 
                 //On load
-                var timeIntervals = {
+                // var timeIntervals = {
+                //
+                //     "/3303/0/5601":1000,
+                //     "/3303/0/5602":2000,
+                //     "/3303/0/5603":3000,
+                //     "/3303/0/5604":4000,
+                //     "/3303/0/5605":5000,
+                //     "/3303/0/5700":6000,
+                //     "/3303/0/5701":7000,
+                //
+                //     "/3304/0/5601":8000,
+                //     "/3304/0/5602":9000,
+                //     "/3304/0/5603":10000,
+                //     "/3304/0/5604":11000,
+                //     "/3304/0/5605":12000,
+                //     "/3304/0/5700":13000,
+                //     "/3304/0/5701":14000
+                //
+                // };
 
-                    "/3303/0":1000
-                    // "/3303/0/5602":2000,
-                    // "/3303/0/5603":3000,
-                    // "/3303/0/5604":4000,
-                    // "/3303/0/5605":5000,
-                    // "/3303/0/5700":6000,
-                    // "/3303/0/5701":7000,
-                    //
-                    // "/3304/0/5601":8000,
-                    // "/3304/0/5602":9000,
-                    // "/3304/0/5603":10000,
-                    // "/3304/0/5604":11000,
-                    // "/3304/0/5605":12000,
-                    // "/3304/0/5700":13000,
-                    // "/3304/0/5701":14000
-
-                };
-
-                function callAtInterval() {
-                    if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
-                        console.log(new Date());
-                        scope.read();
-                    }
-                }
-                if(timeIntervals[scope.resource.path]){
-                    setTimeout(function(){callAtInterval();}, timeIntervals[scope.resource.path]);
-                }
+                // function callAtInterval() {
+                //     if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
+                //         console.log(new Date());
+                //         scope.read();
+                //     }
+                // }
+                // if(timeIntervals[scope.resource.path]){
+                //     setTimeout(function(){callAtInterval();}, timeIntervals[scope.resource.path]);
+                // }
 
 
 
