@@ -421,7 +421,24 @@ angular.module('instanceDirectives', [])
                 /********************Slider ends here*****************************/
 
                 /********************Onload  starts here*****************************/
-                scope.read();
+
+                function getWaitTime() {
+
+                    for(var i = 0; i< scope.parent.instances.length; i++){
+                        if(scope.parent.instances[i].id == scope.instance){
+                            return (i+1)*1000;
+                        }
+                    }
+
+                }
+
+                    function callAtInterval() {
+
+                            scope.read();
+
+                    }
+
+                    setTimeout(function(){callAtInterval();},getWaitTime() );
                 /********************Onload ends her*****************************/
             }
         };
