@@ -51,7 +51,6 @@ angular.module('instanceDirectives', [])
 
                 scope.read = function () {
                     var format = scope.settings.multi.format;
-                    debugger
                     var uri = "api/clients/" + $routeParams.clientId + scope.instance.path;
                     $http.get(uri, {params: {format: format}})
                         .success(function (data, status, headers, config) {
