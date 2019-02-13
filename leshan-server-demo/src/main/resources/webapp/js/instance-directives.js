@@ -307,7 +307,7 @@ angular.module('instanceDirectives', [])
                     });
                 };
 
-                 /********************Slider start*****************************/
+                /********************Slider start*****************************/
 
                 scope.resetSlider = function (id) {
                     // sliderObj1.noUiSlider.set(0,24,100);
@@ -423,35 +423,35 @@ angular.module('instanceDirectives', [])
                 /********************Onload  starts here*****************************/
                 var timeIntervals = {
 
-                        "/3303/0":1000,
-                        "/3304/0":2000,
-                        "/3311/0":3000,
-                        "/3315/0":4000,
-                        "/3330/0":5000,
+                    "/3303/0":1000,
+                    "/3304/0":2000,
+                    "/3311/0":3000,
+                    "/3315/0":4000,
+                    "/3330/0":5000,
 
-                        "/3303/1":1000,
-                        "/3304/1":2000,
-                        "/3311/1":3000,
-                        "/3315/1":4000,
-                        "/3330/1":5000,
+                    "/3303/1":1000,
+                    "/3304/1":2000,
+                    "/3311/1":3000,
+                    "/3315/1":4000,
+                    "/3330/1":5000,
 
-                        "/3303/2":1000,
-                        "/3304/2":2000,
-                        "/3311/2":3000,
-                        "/3315/2":4000,
-                        "/3330/2":5000
+                    "/3303/2":1000,
+                    "/3304/2":2000,
+                    "/3311/2":3000,
+                    "/3315/2":4000,
+                    "/3330/2":5000
 
-                    };
+                };
 
-                    function callAtInterval() {
-                        // if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
-                            console.log(new Date());
-                            scope.read();
-                        // }
-                    }
-                    if(timeIntervals[scope.resource.path]){
-                        setTimeout(function(){callAtInterval();}, timeIntervals[scope.resource.path]);
-                    }
+                function callAtInterval() {
+                    // if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
+                    console.log(new Date());
+                    scope.read();
+                    // }
+                }
+                if(timeIntervals[scope.instance.path]){
+                    setTimeout(function(){callAtInterval();}, timeIntervals[scope.instance.path]);
+                }
                 /********************Onload ends her*****************************/
             }
         };
