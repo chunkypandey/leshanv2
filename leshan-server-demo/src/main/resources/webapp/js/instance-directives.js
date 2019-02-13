@@ -51,7 +51,7 @@ angular.module('instanceDirectives', [])
 
                 scope.read = function () {
                     var format = scope.settings.multi.format;
-                    debugger
+                    console.log(new Date());
                     var uri = "api/clients/" + $routeParams.clientId + scope.instance.path;
                     $http.get(uri, {params: {format: format}})
                         .success(function (data, status, headers, config) {
@@ -423,29 +423,29 @@ angular.module('instanceDirectives', [])
                 /********************Onload  starts here*****************************/
                 var timeIntervals = {
 
-                    "/3303/0":1000,
-                    "/3304/0":2000,
-                    "/3311/0":3000,
-                    "/3315/0":4000,
-                    "/3330/0":5000,
+                    "/3303/0":5000,
+                    "/3304/0":10000,
+                    "/3311/0":15000,
+                    "/3315/0":20000,
+                    "/3330/0":25000
 
-                    "/3303/1":1000,
-                    "/3304/1":2000,
-                    "/3311/1":3000,
-                    "/3315/1":4000,
-                    "/3330/1":5000,
-
-                    "/3303/2":1000,
-                    "/3304/2":2000,
-                    "/3311/2":3000,
-                    "/3315/2":4000,
-                    "/3330/2":5000
+                    // "/3303/1":1000,
+                    // "/3304/1":2000,
+                    // "/3311/1":3000,
+                    // "/3315/1":4000,
+                    // "/3330/1":5000,
+                    //
+                    // "/3303/2":1000,
+                    // "/3304/2":2000,
+                    // "/3311/2":3000,
+                    // "/3315/2":4000,
+                    // "/3330/2":5000
 
                 };
 
                 function callAtInterval() {
                     // if(scope.resource.def.id==5603 || scope.resource.def.id==5604 || scope.resource.def.id==5701){
-                    console.log(new Date());
+
                     scope.read();
                     // }
                 }
