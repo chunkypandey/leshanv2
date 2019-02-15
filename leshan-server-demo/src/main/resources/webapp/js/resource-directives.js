@@ -295,10 +295,10 @@ angular.module('resourceDirectives', [])
                                             var tempName = scope.resource.path;
                                             $rootScope[tempName] = scope.resource.value;
                                         }
-                                        // if(scope.resource.def.id==5601){
-                                        //     scope.resource.path = 5602;
-                                        //     scope.read();
-                                        // }
+                                        if(scope.resource.def.id==5601){
+
+                                            customRead();
+                                        }
                                     } else if ("values" in data.content) {
                                         // multiple instances
                                         var tab = new Array();
@@ -317,6 +317,12 @@ angular.module('resourceDirectives', [])
                         console.error(errormessage);
                     });
                 };
+
+                function customRead(){
+                    scope.resource.path = 5602;
+                    setTimeout(function(){scope.read();}, 1000);
+                    setTimeout(function(){scope.resource.path = 5601;}, 2000);
+                }
 
 
                 scope.write = function () {
