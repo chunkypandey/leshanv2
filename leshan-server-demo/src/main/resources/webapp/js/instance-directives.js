@@ -64,13 +64,13 @@ angular.module('instanceDirectives', [])
                                             // single value
                                             resource.value = tlvresource.value;
                                             doSliderStuff(scope.instance.path, resource.value, resource.def.name);
-                                            if (scope.resource.def.id == 5603) {
-                                                var tempName = scope.resource.path;
-                                                $rootScope[tempName] = scope.resource.value;
+                                            if (resource.def.id == 5603) {
+                                                var tempName = resource.path;
+                                                $rootScope[tempName] = resource.value;
                                             }
-                                            if (scope.resource.def.id == 5604) {
-                                                var tempName = scope.resource.path;
-                                                $rootScope[tempName] = scope.resource.value;
+                                            if (resource.def.id == 5604) {
+                                                var tempName = resource.path;
+                                                $rootScope[tempName] = resource.value;
                                             }
                                         } else if ("values" in tlvresource) {
                                             // multiple instances
