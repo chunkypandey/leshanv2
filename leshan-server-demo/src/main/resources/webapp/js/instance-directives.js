@@ -63,7 +63,7 @@ angular.module('instanceDirectives', [])
                                         if ("value" in tlvresource) {
                                             // single value
                                             resource.value = tlvresource.value;
-                                            doSliderStuff(scope.instance.path, scope.resource.value, scope.resource.def.name);
+                                            doSliderStuff(scope.instance.path, resource.value, resource.def.name);
                                             if (scope.resource.def.id == 5603) {
                                                 var tempName = scope.resource.path;
                                                 $rootScope[tempName] = scope.resource.value;
