@@ -424,10 +424,10 @@ angular.module('instanceDirectives', [])
                 var timeIntervals = {
 
                     "/3303/0":3000,
-                    "/3304/0":6000
-                    // "/3311/0":15000,
+                    "/3304/0":6000,
+                    "/3311/0":9000,
                     // "/3315/0":20000,
-                    // "/3330/0":25000
+                    "/3330/0":12000
 
                     // "/3303/1":1000,
                     // "/3304/1":2000,
@@ -452,7 +452,7 @@ angular.module('instanceDirectives', [])
                 if(timeIntervals[scope.instance.path]){
                     setTimeout(function(){callAtInterval();}, timeIntervals[scope.instance.path]);
                 }
-                /********************Onload ends her*****************************/
+                /********************Onload ends here*****************************/
             }
         };
     });
