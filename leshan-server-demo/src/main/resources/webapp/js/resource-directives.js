@@ -384,11 +384,23 @@ angular.module('resourceDirectives', [])
 
                 scope.execWithParams = function () {
                     $('#writeModalLabel').text(scope.resource.def.name);
-                    $('#writeInputValue').val(scope.resource.value);
+                    $('#writeInputValue1').val(scope.resource.value);
                     $('#writeSubmit').unbind();
                     $('#writeSubmit').click(function (e) {
                         e.preventDefault();
-                        var value = $('#writeInputValue').val();
+                        var value1 = $('#writeInputValue1').val();
+                        var value2 = $('#writeInputValue2').val();
+                        if(!value1){
+                            alert("Please enter value 1")
+                        }
+                        if(!value2){
+                            alert("Please enter value 2")
+                        }
+                        if(value1>value2){
+                            alert("Value 1 must be smaller than value 2")
+                        }
+                        var value = value1+","+value2;
+
 
                         if (value) {
                             $('#writeModal').modal('hide');
