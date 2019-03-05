@@ -263,26 +263,6 @@
 
         <!--Distance-->
         <div>
-            <div ng-if="resource.id==5750">
-                <div ng-show="writable()" class="btn-group">
-                    <button type="button" ng-click="resource.write.status = null; write()"
-                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
-                            ng-class="{
-								'btn': true,
-								'btn-xs': true,
-								'btn-default': resource.write.status == null,
-								'btn-danger': resource.write.status == 'ERROR',
-								'btn-warning': resource.write.status == 'INVALID',
-								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
-                </div>
-                <div ng-class="{
-				'col-md-3': true,
-				'resource-value': true,
-				'resource-value-supposed': resource.valuesupposed}">
-                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
-                </div>
-            </div>
-
             <div ng-if="resource.id==5821">
                 <div ng-show="writable()" class="btn-group">
                     <button type="button" ng-click="resource.write.status = null; write()"
@@ -304,9 +284,10 @@
             </div>
         </div>
 
-        <!--Light-->
+        <!--Light and Distance-->
         <div>
             <div ng-if="resource.id==5706">
+                Colour
                 <div ng-show="writable()" class="btn-group">
                     <button type="button" ng-click="resource.write.status = null; write()"
                             tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
@@ -337,8 +318,11 @@
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
+
             <div ng-if="resource.id==5750">
+                Application Type
                 <div ng-show="writable()" class="btn-group">
                     <button type="button" ng-click="resource.write.status = null; write()"
                             tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
@@ -350,27 +334,17 @@
 								'btn-warning': resource.write.status == 'INVALID',
 								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
                 </div>
-                <div ng-show="readable()" class="btn-group">
-                    <button type="button" ng-click="resource.read.status = null; read()"
-                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
-                            tooltip-animation="false" tooltip-append-to-body="true"
-                            ng-class="{
-								'btn': true,
-								'btn-xs': true,
-								'btn-default': resource.read.status == null,
-								'btn-danger': resource.read.status == 'ERROR',
-								'btn-warning': resource.read.status == 'INVALID',
-								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
-                    </button>
-                </div>
                 <div ng-class="{
 				'col-md-3': true,
 				'resource-value': true,
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
+
             <div ng-if="resource.id==5805">
+                Cumulative active power
                 <div ng-show="readable()" class="btn-group">
                     <button type="button" ng-click="resource.read.status = null; read()"
                             tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
@@ -390,8 +364,10 @@
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
             <div ng-if="resource.id==5820">
+                Power Factor
                 <div ng-show="readable()" class="btn-group">
                     <button type="button" ng-click="resource.read.status = null; read()"
                             tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
@@ -430,8 +406,10 @@
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
             <div ng-if="resource.id==5850">
+                On/Off
                 <div ng-show="writable()" class="btn-group">
                     <button type="button" ng-click="resource.write.status = null; write()"
                             tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
@@ -462,8 +440,10 @@
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
             <div ng-if="resource.id==5851">
+                Dimmer
                 <div ng-show="writable()" class="btn-group">
                     <button type="button" ng-click="resource.write.status = null; write()"
                             tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
@@ -494,8 +474,10 @@
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
             <div ng-if="resource.id==5852">
+                On Time
                 <div ng-show="writable()" class="btn-group">
                     <button type="button" ng-click="resource.write.status = null; write()"
                             tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
@@ -526,6 +508,7 @@
 				'resource-value-supposed': resource.valuesupposed}">
                     <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
                 </div>
+                <br>
             </div>
         </div>
     </div>
