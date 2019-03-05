@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h3 class="modal-title">Execute with Params</h3>
+</div>
+<form class="form form-horizontal">
+    <div class="modal-body">
+
+        <!-- P-MIN -->
+        <div class="form-group">
+            <label>P-MIN</label>
+            <input type="number" class="form-control" ng-model="pmin" required>
+        </div>
+
+        <!-- P-MAX -->
+        <div class="form-group">
+            <label>P-MAX</label>
+            <input type="number" class="form-control" ng-model="pmax" required>
+        </div>
+
+        <!-- LT -->
+        <div class="form-group">
+            <label>LT</label>
+            <input type="number" class="form-control" ng-model="lt" required>
+        </div>
+
+        <!-- GT -->
+        <div class="form-group">
+            <label>GT</label>
+            <input type="number" class="form-control" ng-model="gt" required>
+        </div>
+
+        <!-- STEP -->
+        <div class="form-group">
+            <label>STEP</label>
+            <input type="number" class="form-control" ng-model="st" required>
+        </div>
+    </div>
+</form>
+
+
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="closeExcecuteWithParamsModal()">Cancel</button>
+    <button class="btn btn-primary" ng-click="writeAttribute(pmin,pmax,lt,gt,st);">Send</button>
+</div>

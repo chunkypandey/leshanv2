@@ -260,6 +260,274 @@
                 </div>
             </div>
         </div>
+
+        <!--Distance-->
+        <div>
+            <div ng-if="resource.id==5750">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+
+            <div ng-if="resource.id==5821">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!--Light-->
+        <div>
+            <div ng-if="resource.id==5706">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5750">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5805">
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5820">
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                    <button type="button"
+                            ng-click="resource.observe.status = null; startObserve()"
+                            tooltip-html-unsafe={{resource.observe.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.observe.status == null,
+								'btn-danger': resource.observe.status == 'ERROR',
+								'btn-warning': resource.observe.status == 'INVALID',
+								'btn-success': resource.observe.status == 'SUCCESS' }" ng-hide="resource.observed"><span
+                            class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+                    <button type="button" ng-click="stopObserve()"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.observe.stop == null,
+								'btn-success': resource.observe.stop == 'success' }" ng-show="resource.observed"><span
+                            class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5850">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5851">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+            <div ng-if="resource.id==5852">
+                <div ng-show="writable()" class="btn-group">
+                    <button type="button" ng-click="resource.write.status = null; write()"
+                            tooltip-html-unsafe={{resource.write.tooltip}} tooltip-placement="right" tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.write.status == null,
+								'btn-danger': resource.write.status == 'ERROR',
+								'btn-warning': resource.write.status == 'INVALID',
+								'btn-success': resource.write.status == 'SUCCESS' }">Write</button>
+                </div>
+                <div ng-show="readable()" class="btn-group">
+                    <button type="button" ng-click="resource.read.status = null; read()"
+                            tooltip-html-unsafe={{resource.read.tooltip}} tooltip-placement="right"
+                            tooltip-animation="false" tooltip-append-to-body="true"
+                            ng-class="{
+								'btn': true,
+								'btn-xs': true,
+								'btn-default': resource.read.status == null,
+								'btn-danger': resource.read.status == 'ERROR',
+								'btn-warning': resource.read.status == 'INVALID',
+								'btn-success': resource.read.status == 'SUCCESS' }">Latest Value
+                    </button>
+                </div>
+                <div ng-class="{
+				'col-md-3': true,
+				'resource-value': true,
+				'resource-value-supposed': resource.valuesupposed}">
+                    <span tooltip="{{resource.tooltip}}" tooltip-animation="false">{{resource.value}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
