@@ -384,7 +384,7 @@ angular.module('resourceDirectives', [])
 
                 scope.execWithParams = function () {
                     $('#writeModalLabel').text(scope.resource.def.name);
-                    $('#writeInputValue1').val(scope.resource.value);
+                    // $('#writeInputValue1').val(scope.resource.value);
                     $('#writeSubmit').unbind();
                     $('#writeSubmit').click(function (e) {
                         e.preventDefault();
