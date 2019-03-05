@@ -412,7 +412,13 @@ angular.module('resourceDirectives', [])
                             })
                                 .success(function (data, status, headers, config) {
                                     helper.handleResponse(data, scope.resource.exec);
-                                    scope.resetSlider(scope.parent.path);
+
+
+                                    doSliderStuff(scope.parent.path, value1, "Min Measured Value");
+
+                                    setTimeout(function(){
+                                        doSliderStuff(scope.parent.path, value2, "Max Measured Value");
+                                    }, 1000);
                                 }).error(function (data, status, headers, config) {
                                 errormessage = "Unable to execute resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                                 dialog.open(errormessage);
