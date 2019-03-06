@@ -56,39 +56,29 @@
                     object='object' settings='settings'></object>
         </div>
 
-        <!--<div>-->
-            <!--<accordion-group is-open="status.open">-->
-                <!--<accordion-heading>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-md-4 object-name">Admin</div>-->
-                        <!--<div class="col-md-8 text-muted small">-->
-                            <!--<i class="pull-right glyphicon"-->
-                               <!--ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</accordion-heading>-->
-                <!---->
-            <!--</accordion-group>-->
-        <!--</div>-->
-
-
-        <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                        Admin
-                    </a>
-                </div>
-                <div id="collapseOne" class="accordion-body collapse in">
-                    <div class="accordion-inner">
-                        <object ng-repeat='object in objects'
-                                ng-if="object.id==1 || object.id==2 || object.id==3 || object.id==4 || object.id==5 || object.id==6
+        <div>
+            <accordion close-others=false>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        <div class="row">
+                            <div class="col-md-4 object-name">Admin</div>
+                            <div class="col-md-8 text-muted small">
+                                <i class="pull-right glyphicon"
+                                   ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                            </div>
+                        </div>
+                    </accordion-heading>
+                    <object ng-repeat='object in objects'
+                            ng-if="object.id==1 || object.id==2 || object.id==3 || object.id==4 || object.id==5 || object.id==6
                     || object.id==7 || object.id==9 || object.id==14 || object.id==15"
-                                object='object' settings='settings'></object>
-                    </div>
-                </div>
-            </div>
+                            object='object' settings='settings'></object>
+                </accordion-group>
+            </accordion>
+
         </div>
+
+
+
 
 
 
