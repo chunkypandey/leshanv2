@@ -374,7 +374,16 @@ angular.module('resourceDirectives', [])
                     $http.post("api/clients/" + $routeParams.clientId + scope.resource.path)
                         .success(function (data, status, headers, config) {
                             helper.handleResponse(data, scope.resource.exec);
-                            scope.resetSlider(scope.parent.path);
+                            // scope.resetSlider(scope.parent.path);
+                            doSliderStuff(scope.parent.path, 0, "Min Measured Value");
+
+                            setTimeout(function(){
+                                doSliderStuff(scope.parent.path, 0, "Max Measured Value");
+                            }, 1000);
+
+                            setTimeout(function(){
+                                doSliderStuff(scope.parent.path, 0, "Sensor Value");
+                            }, 1000);
                         }).error(function (data, status, headers, config) {
                         errormessage = "Unable to execute resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
                         dialog.open(errormessage);
@@ -382,11 +391,11 @@ angular.module('resourceDirectives', [])
                     });
                 };
 
-                scope.execWithParams = function () {
-                    $('#writeModalLabel').text(scope.resource.def.name);
+                scope.execWithParams1 = function () {
+                    $('#writeModalLabel1').text(scope.resource.def.name);
                     // $('#writeInputValue1').val(scope.resource.value);
-                    $('#writeSubmit').unbind();
-                    $('#writeSubmit').click(function (e) {
+                    $('#writeSubmit1').unbind();
+                    $('#writeSubmit1').click(function (e) {
                         e.preventDefault();
                         var value1 = $('#writeInputValue1').val();
                         var value2 = $('#writeInputValue2').val();
@@ -403,7 +412,7 @@ angular.module('resourceDirectives', [])
 
 
                         if (value) {
-                            $('#writeModal').modal('hide');
+                            $('#writeModal1').modal('hide');
 
                             $http({
                                 method: 'POST',
@@ -421,6 +430,30 @@ angular.module('resourceDirectives', [])
                                     }, 1000);
                                 }).error(function (data, status, headers, config) {
                                 errormessage = "Unable to execute resource " + scope.resource.path + " for " + $routeParams.clientId + " : " + status + " " + data;
+                                dialog.open(errormessage);
+                                console.error(errormessage);
+                            });
+                        }
+                    });
+                    $('#writeModal1').modal('show');
+                };
+
+                scope.execWithParams = function() {
+                    $('#writeModalLabel').text(scope.resource.def.name);
+                    $('#writeInputValue').val(scope.resource.value);
+                    $('#writeSubmit').unbind();
+                    $('#writeSubmit').click(function(e){
+                        e.preventDefault();
+                        var value = $('#writeInputValue').val();
+
+                        if(value) {
+                            $('#writeModal').modal('hide');
+
+                            $http({method: 'POST', url: "api/clients/" + $routeParams.clientId + scope.resource.path, data: value})
+                                .success(function(data, status, headers, config) {
+                                    helper.handleResponse(data, scope.resource.exec);
+                                }).error(function(data, status, headers, config) {
+                                errormessage = "Unable to execute resource " + scope.resource.path + " for "+ $routeParams.clientId + " : " + status +" "+ data;
                                 dialog.open(errormessage);
                                 console.error(errormessage);
                             });
