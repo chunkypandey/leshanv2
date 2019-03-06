@@ -55,6 +55,12 @@
                     ng-if="object.id==3303 || object.id==3304 || object.id==3311 || object.id==3315 || object.id==3330"
                     object='object' settings='settings'></object>
         </div>
+
+        <div>
+            <object ng-repeat='object in objects'
+                    ng-if="object.id==1 || object.id==2 || object.id==3 || object.id==4 || object.id==5"
+                    object='object' settings='settings'></object>
+        </div>
         <!--</accordion>-->
 <!--
  <accordion close-others=false ng-show="showObjectType=='sensorPanel'">
